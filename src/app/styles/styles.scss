@@ -1,0 +1,16 @@
+@use './theme' as *;
+@use '@angular/material' as mat;
+
+html,
+body {
+  @include apply-theme($light-theme);
+  color-scheme: light;
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+  height: 100%;
+}
+
+body[theme='dark-theme'] {
+  @include apply-theme($dark-theme);
+  color-scheme: dark;
+}

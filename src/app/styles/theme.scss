@@ -1,0 +1,43 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$primary-palette: mat.$rose-palette;
+$tertiary-palette: mat.$magenta-palette;
+$scale: -1;
+
+$light-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: $primary-palette,
+      tertiary: $tertiary-palette,
+    ),
+
+    density: (
+      scale: $scale,
+    ),
+  )
+);
+
+$dark-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: $primary-palette,
+      tertiary: $tertiary-palette,
+    ),
+
+    density: (
+      scale: $scale,
+    ),
+  )
+);
+
+@mixin apply-theme($theme) {
+  @include mat.all-component-themes($theme);
+  @include mat.color-variants-backwards-compatibility($theme);
+  .mat-toolbar {
+    background: mat.get-theme-color($theme, primary-container);
+    color: mat.get-theme-color($theme, on-primary-container);
+  }
+}
