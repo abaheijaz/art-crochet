@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "art-crochet": {
+    "art-crochet-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -59,10 +59,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "art-crochet:build:production"
+              "buildTarget": "art-crochet-ui:build:production"
             },
             "development": {
-              "buildTarget": "art-crochet:build:development"
+              "buildTarget": "art-crochet-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
