@@ -19,4 +19,9 @@ describe('Dashboard', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should show loading text initially', () => {
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('Loading pictures...');
+  });
 });

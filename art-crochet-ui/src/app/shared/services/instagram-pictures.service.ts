@@ -1,0 +1,31 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+
+export interface InstagramPictureItem {
+  source: 'instagram_graph_api';
+  picture_url: string;
+  permalink: string;
+  caption?: string | null;
+  timestamp: string;
+  media_type: string;
+}
+
+interface InstagramPicturesResponse {
+  pictures: InstagramPictureItem[];
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class InstagramPicturesService {
+  private readonly http = inject(HttpClient);
+
+  async getLatestNinePictures(): Promise<InstagramPictureItem[]> {
+    const response = await firstValueFrom(
+      this.http.get<InstagramPicturesResponse>('/api/instagram/pictures')
+    );
+
+    return response.pictures;
+  }
+}
