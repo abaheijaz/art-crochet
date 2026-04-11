@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "art-crochet-ui-api",
+	"name": "art-crochet-api",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-04-07",
 	"observability": {
@@ -13,7 +13,7 @@
 	"upload_source_maps": true,
 	"compatibility_flags": [
 		"nodejs_compat"
-	]
+	],
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
@@ -31,7 +31,11 @@
 	 * Note: Use secrets to store sensitive data.
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
 	 */
-	// "vars": {  "MY_VARIABLE": "production_value" }
+	"vars": {
+		"INSTAGRAM_BUSINESS_ACCOUNT_ID": "17841445571902861",
+		"INSTAGRAM_GRAPH_ACCESS_TOKEN": "EAANcM99oHqIBRO2ZAIQzTCKYgycC0iZA2i2yUUXHt5SoTxxc0C6iZAed8yhsbgld8r5CmZBtYLzlYNyYoLX8GTwJX3EJ76og9ZAcsc81jRKANBU45oFKlHHLZCBOti0R0xpgFiICVAd8P9hkpJWkBpe5CQheg6ZBfweXbjrjBmB6mCOQYlN0E38HVB3pUHl",
+		"INSTAGRAM_GRAPH_API_VERSION": "v25.0"
+	}
 	/**
 	 * Static Assets
 	 * https://developers.cloudflare.com/workers/static-assets/binding/
