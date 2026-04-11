@@ -23,3 +23,19 @@ This is an example project made to be used as a quick start into building OpenAP
 1. Run `wrangler dev` to start a local instance of the API.
 2. Open `http://localhost:8787/` in your browser to see the Swagger interface where you can try the endpoints.
 3. Changes made in the `src/` folder will automatically trigger the server to reload, you only need to refresh the Swagger interface.
+
+## Instagram Graph API endpoint
+
+This API now includes `GET /api/instagram/picture`, which returns the latest available picture from your Instagram professional account.
+
+Required bindings:
+
+1. `INSTAGRAM_BUSINESS_ACCOUNT_ID` (in `wrangler.jsonc` vars)
+2. `INSTAGRAM_GRAPH_ACCESS_TOKEN` (set as a Wrangler secret)
+3. Optional `INSTAGRAM_GRAPH_API_VERSION` (defaults to `v23.0`)
+
+Set the secret:
+
+```bash
+wrangler secret put INSTAGRAM_GRAPH_ACCESS_TOKEN
+```

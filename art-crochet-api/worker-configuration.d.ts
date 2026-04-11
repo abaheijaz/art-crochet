@@ -6,6 +6,9 @@ declare namespace Cloudflare {
 		mainModule: typeof import("./src/index");
 	}
 	interface Env {
+        INSTAGRAM_BUSINESS_ACCOUNT_ID: string;
+        INSTAGRAM_GRAPH_ACCESS_TOKEN: string;
+        INSTAGRAM_GRAPH_API_VERSION?: string;
 	}
 }
 interface Env extends Cloudflare.Env {}
