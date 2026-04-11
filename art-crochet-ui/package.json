@@ -7,9 +7,7 @@
     "build": "ng build",
     "cf:build": "npm run build",
     "cf:dev": "npm run cf:build && wrangler pages dev dist/art-crochet/browser",
-    "deploy": "npm run cf:build && wrangler pages deploy dist/art-crochet/browser --project-name art-crochet --branch production",
-    "deploy:preview": "npm run cf:build && wrangler pages deploy dist/art-crochet/browser --project-name art-crochet --branch main",
-    "deploy:prod": "npm run cf:build && wrangler pages deploy dist/art-crochet/browser --project-name art-crochet --branch production",
+    "deploy": "npm run cf:build && wrangler pages deploy dist/art-crochet/browser --project-name art-crochet",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
