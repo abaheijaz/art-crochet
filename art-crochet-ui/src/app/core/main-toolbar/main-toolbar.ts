@@ -9,5 +9,5 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   styleUrl: './main-toolbar.scss',
 })
 export class MainToolbar {
-  title = 'Xima Art Crochet';
+  title = 'Xima Art';
 }
