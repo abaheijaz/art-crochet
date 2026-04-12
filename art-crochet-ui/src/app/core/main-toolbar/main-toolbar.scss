@@ -1,0 +1,12 @@
+mat-toolbar {
+  min-height: 4.5rem;
+  justify-content: center;
+}
+
+.toolbar-title {
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
