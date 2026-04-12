@@ -1,30 +1,65 @@
 <section class="dashboard">
-	<h1 class="dashboard__title">Latest Instagram Pictures</h1>
+  <div class="dashboard__header"></div>
 
-	@if (isLoading()) {
-		<p class="dashboard__state">Loading pictures...</p>
-	} @else if (errorMessage()) {
-		<p class="dashboard__state dashboard__state--error">{{ errorMessage() }}</p>
-	} @else if (pictures().length === 0) {
-		<p class="dashboard__state">No pictures available yet.</p>
-	} @else {
-		<div class="pictures-grid">
-			@for (picture of pictures(); track picture.permalink) {
-				<a
-					class="picture-card"
-					[href]="picture.permalink"
-					target="_blank"
-					rel="noopener noreferrer"
-					[attr.aria-label]="'Open Instagram post: ' + (picture.caption || 'Picture')"
-				>
-					<img
-						class="picture-card__image"
-						[src]="picture.picture_url"
-						[alt]="picture.caption || 'Instagram picture'"
-						loading="lazy"
-					/>
-				</a>
-			}
-		</div>
-	}
+  @if (isLoading()) {
+    <p class="dashboard__state">Loading pictures...</p>
+  } @else if (errorMessage()) {
+    <p class="dashboard__state dashboard__state--error">{{ errorMessage() }}</p>
+  } @else if (pictures().length === 0) {
+    <p class="dashboard__state">No pictures available yet.</p>
+  } @else {
+    <div class="product-tabs" role="tablist" aria-label="Select a product type">
+      @for (tab of productTabsWithCounts(); track tab.value) {
+        <button
+          type="button"
+          class="product-tabs__button"
+          [class.product-tabs__button--active]="selectedProductType() === tab.value"
+          role="tab"
+          [attr.id]="'product-tab-' + tab.value"
+          [attr.aria-selected]="selectedProductType() === tab.value"
+          [attr.aria-controls]="'product-panel-' + tab.value"
+          (click)="selectProductType(tab.value)"
+        >
+          <span>{{ tab.label }}</span>
+          <span class="product-tabs__count">{{ tab.count }}</span>
+        </button>
+      }
+    </div>
+
+    <div
+      class="dashboard__panel"
+      role="tabpanel"
+      [attr.id]="'product-panel-' + selectedProductType()"
+      [attr.aria-labelledby]="'product-tab-' + selectedProductType()"
+    >
+      @if (visiblePictures().length === 0) {
+        <p class="dashboard__state">{{ selectedTabEmptyState() }}</p>
+      } @else {
+        <div class="pictures-grid">
+          @for (picture of visiblePictures(); track picture.permalink) {
+            <a
+              class="picture-card"
+              [href]="picture.permalink"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="'Open Instagram post: ' + (picture.caption || 'Picture')"
+            >
+              <img
+                class="picture-card__image"
+                [src]="picture.picture_url"
+                [alt]="picture.caption || 'Instagram picture'"
+                loading="lazy"
+              />
+            </a>
+          }
+        </div>
+
+        <div class="dashboard__feed-status" aria-live="polite">
+          Showing {{ visiblePictures().length }} of {{ filteredPictures().length }} pictures.
+        </div>
+
+        <div #scrollSentinel class="scroll-sentinel" [attr.aria-hidden]="true"></div>
+      }
+    </div>
+  }
 </section>
