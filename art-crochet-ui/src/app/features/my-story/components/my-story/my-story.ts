@@ -3,10 +3,10 @@ import { MatCardModule } from '@angular/material/card';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-  selector: 'app-about',
+  selector: 'app-my-story',
   imports: [MatCardModule, RouterLink, RouterLinkActive],
-  templateUrl: './about.html',
-  styleUrl: './about.scss',
+  templateUrl: './my-story.html',
+  styleUrl: './my-story.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class About {}
+export class MyStory {}

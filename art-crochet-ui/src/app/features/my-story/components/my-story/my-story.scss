@@ -1,10 +1,10 @@
-.about {
+.my-story {
   margin: 0 auto;
   max-width: 72rem;
   padding: 2rem 1.5rem 3rem;
 }
 
-.about__header {
+.my-story__header {
   margin-bottom: 1.75rem;
   text-align: center;
 }
@@ -46,17 +46,17 @@
   background: var(--mat-sys-primary);
 }
 
-.about__card {
+.my-story__card {
   width: min(100%, 48rem);
   margin: 0 auto;
   background-color: var(--mat-sys-surface-container-low);
 }
 
-.about__card mat-card-content {
+.my-story__card mat-card-content {
   padding: clamp(1.5rem, 4vw, 3rem);
 }
 
-.about__eyebrow {
+.my-story__eyebrow {
   color: var(--mat-sys-primary);
   font-size: 0.82rem;
   font-weight: 700;
@@ -65,7 +65,7 @@
   text-transform: uppercase;
 }
 
-.about__title {
+.my-story__title {
   color: var(--mat-sys-on-surface);
   font-family: 'Cormorant Garamond', 'Times New Roman', serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
@@ -73,19 +73,19 @@
   margin: 0 0 1rem;
 }
 
-.about__body {
+.my-story__body {
   color: var(--mat-sys-on-surface-variant);
   font-size: 1rem;
   line-height: 1.7;
   margin: 0;
 }
 
-.about__body + .about__body {
+.my-story__body + .my-story__body {
   margin-top: 1rem;
 }
 
 @media (max-width: 600px) {
-  .about {
+  .my-story {
     padding: 1.25rem 1rem 2rem;
   }
 

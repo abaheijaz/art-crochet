@@ -2,9 +2,9 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'about',
+    path: 'my-story',
     loadChildren: () =>
-      import('./features/about/about.routes').then((module) => module.ABOUT_ROUTES),
+      import('./features/my-story/my-story.routes').then((module) => module.MY_STORY_ROUTES),
   },
   {
     path: '',
