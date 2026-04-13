@@ -11,5 +11,5 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainToolbar {
-  title = 'Handmade by Xima';
+  title = 'Lovingly Made';
 }

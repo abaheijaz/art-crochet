@@ -31,9 +31,21 @@
 .gallery__intro-title {
   color: var(--mat-sys-on-surface);
   font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(1.8rem, 4.2vw, 3rem);
   line-height: 0.98;
   margin: 0 0 1rem;
+  white-space: nowrap;
+}
+
+.gallery__intro-tail {
+  white-space: nowrap;
+}
+
+.gallery__intro-icon {
+  display: inline;
+  font-size: 0.75em;
+  line-height: 1;
+  margin-left: 0.12em;
 }
 
 .gallery__intro-body {
@@ -41,6 +53,7 @@
   font-size: 1rem;
   line-height: 1.7;
   margin: 0;
+  text-align: justify;
 }
 
 .gallery__intro-body + .gallery__intro-body {
@@ -174,6 +187,10 @@
 @media (max-width: 600px) {
   .gallery {
     padding: 1.25rem 1rem 2rem;
+  }
+
+  .gallery__intro-title {
+    font-size: clamp(1.2rem, 5.4vw, 2rem);
   }
 
   .gallery__title {

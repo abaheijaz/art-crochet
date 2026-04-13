@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 import {
   InstagramPictureItem,
@@ -57,7 +58,7 @@ const PICTURE_BATCH_SIZE = 12;
 
 @Component({
   selector: 'app-gallery',
-  imports: [MatButtonToggleModule, MatCardModule],
+  imports: [MatButtonToggleModule, MatCardModule, MatIconModule],
   templateUrl: './gallery.html',
   styleUrl: './gallery.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
