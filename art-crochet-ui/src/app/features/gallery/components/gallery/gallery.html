@@ -21,7 +21,26 @@
   </mat-card>
 
   <header class="gallery__header">
-    <h2 class="gallery__title">Gallery</h2>
+    <nav class="section-nav" aria-label="Section navigation">
+      <a
+        class="section-nav__link"
+        routerLink="/"
+        routerLinkActive="section-nav__link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+      >
+        Gallery
+      </a>
+      <span class="section-nav__divider" aria-hidden="true"></span>
+      <a
+        class="section-nav__link"
+        routerLink="/about"
+        routerLinkActive="section-nav__link--active"
+        ariaCurrentWhenActive="page"
+      >
+        About
+      </a>
+    </nav>
   </header>
 
   <mat-card class="gallery__surface" appearance="outlined">

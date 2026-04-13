@@ -3,27 +3,5 @@
 </header>
 
 <mat-toolbar>
-  <a class="toolbar-title" routerLink="/">{{ title }}</a>
-
-  <nav class="toolbar-nav" aria-label="Main navigation">
-    <a
-      matButton
-      class="toolbar-link"
-      routerLink="/"
-      routerLinkActive="toolbar-link--active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      ariaCurrentWhenActive="page"
-    >
-      Gallery
-    </a>
-    <a
-      matButton
-      class="toolbar-link"
-      routerLink="/about"
-      routerLinkActive="toolbar-link--active"
-      ariaCurrentWhenActive="page"
-    >
-      About
-    </a>
-  </nav>
+  <span class="toolbar-title" routerLink="/">{{ title }}</span>
 </mat-toolbar>
