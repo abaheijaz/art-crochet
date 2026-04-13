@@ -133,6 +133,7 @@ $dark-theme: mat.define-theme(
 );
 
 @mixin apply-theme($theme) {
+  @include mat.system-level-colors($theme);
   @include mat.all-component-themes($theme);
   @include mat.color-variants-backwards-compatibility($theme);
 }

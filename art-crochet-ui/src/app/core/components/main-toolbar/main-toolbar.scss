@@ -25,18 +25,36 @@ mat-toolbar {
   border-bottom: 1px solid var(--mat-sys-outline-variant);
 }
 
+.toolbar-title-samples {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1.5rem;
+  row-gap: 0.35rem;
+}
+
 .toolbar-title {
   color: var(--mat-sys-primary);
-  text-decoration: none;
-  font-family: 'Brush Script MT', 'Lucida Calligraphy', cursive;
   font-size: clamp(2rem, 3vw, 2.8rem);
   font-weight: 400;
   letter-spacing: 0.02em;
 }
 
-.toolbar-title:focus-visible {
-  outline: 2px solid var(--mat-sys-primary);
-  outline-offset: 3px;
+.toolbar-title--montez {
+  font-family: 'Montez', 'Brush Script MT', 'Lucida Calligraphy', cursive;
+}
+
+.toolbar-title--italianno {
+  font-family: 'Italianno', 'Brush Script MT', 'Lucida Calligraphy', cursive;
+}
+
+.toolbar-title--short-stack {
+  font-family: 'Short Stack', 'Comic Sans MS', cursive;
+}
+
+.toolbar-title--crafty-girls {
+  font-family: 'Crafty Girls', 'Comic Sans MS', cursive;
 }
 
 @media (max-width: 640px) {
@@ -50,5 +68,10 @@ mat-toolbar {
 
   mat-toolbar {
     padding: 1rem;
+  }
+
+  .toolbar-title-samples {
+    flex-direction: column;
+    row-gap: 0.2rem;
   }
 }
