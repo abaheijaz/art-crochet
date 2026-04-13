@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { MainToolbar } from './core/main-toolbar/main-toolbar';
+import { MainToolbar } from './core/components/main-toolbar/main-toolbar';
 
 @Component({
   selector: 'app-root',
