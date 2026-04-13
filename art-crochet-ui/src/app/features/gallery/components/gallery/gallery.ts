@@ -13,7 +13,6 @@ import {
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import {
   InstagramPictureItem,
@@ -59,7 +58,7 @@ const PICTURE_BATCH_SIZE = 12;
 
 @Component({
   selector: 'app-gallery',
-  imports: [MatButtonToggleModule, MatCardModule, MatIconModule, RouterLink, RouterLinkActive],
+  imports: [MatButtonToggleModule, MatCardModule, MatIconModule],
   templateUrl: './gallery.html',
   styleUrl: './gallery.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
