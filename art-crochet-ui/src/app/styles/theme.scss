@@ -1,8 +1,107 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
-$primary-palette: mat.$rose-palette;
-$tertiary-palette: mat.$magenta-palette;
+$primary-palette: mat.$spring-green-palette;
+$tertiary-palette: (
+  0: #000000,
+  10: #26160d,
+  20: #3d2a1d,
+  25: #493526,
+  30: #55402f,
+  35: #624b38,
+  40: #6f5742,
+  50: #896f58,
+  60: #a4876f,
+  70: #c09f87,
+  80: #ddbba2,
+  90: #fad8be,
+  95: #ffe9dd,
+  98: #fff8f5,
+  99: #fffbff,
+  100: #ffffff,
+  secondary: (
+    0: #000000,
+    10: #241814,
+    20: #3a2d28,
+    25: #463832,
+    30: #52433d,
+    35: #5f4e48,
+    40: #6b5a54,
+    50: #84736c,
+    60: #9f8c85,
+    70: #bba79f,
+    80: #d8c2ba,
+    90: #f5ded5,
+    95: #ffede7,
+    98: #fff8f5,
+    99: #fffbff,
+    100: #ffffff,
+  ),
+  neutral: (
+    0: #000000,
+    10: #211a17,
+    20: #372f2b,
+    25: #433a36,
+    30: #4f4540,
+    35: #5b514c,
+    40: #675d58,
+    50: #807570,
+    60: #9b8f89,
+    70: #b6a9a3,
+    80: #d2c4be,
+    90: #eee0da,
+    95: #fdf0ea,
+    98: #fff8f5,
+    99: #fffbff,
+    100: #ffffff,
+    4: #130d0b,
+    6: #18120f,
+    12: #261e1b,
+    17: #302825,
+    22: #3b332f,
+    24: #403834,
+    87: #e5d8d2,
+    92: #f3e6e0,
+    94: #f9ebe5,
+    96: #fff1eb,
+  ),
+  neutral-variant: (
+    0: #000000,
+    10: #251912,
+    20: #3b2e26,
+    25: #473931,
+    30: #53443c,
+    35: #605047,
+    40: #6c5b52,
+    50: #85746a,
+    60: #a08d83,
+    70: #bca79d,
+    80: #d9c3b8,
+    90: #f6ded3,
+    95: #ffede4,
+    98: #fff8f5,
+    99: #fffbff,
+    100: #ffffff,
+  ),
+  error: (
+    0: #000000,
+    10: #410002,
+    20: #690005,
+    25: #7e0007,
+    30: #93000a,
+    35: #a80710,
+    40: #ba1a1a,
+    50: #de3730,
+    60: #ff5449,
+    70: #ff897d,
+    80: #ffb4ab,
+    90: #ffdad6,
+    95: #ffedea,
+    98: #fff8f7,
+    99: #fffbff,
+    100: #ffffff,
+  ),
+);
 $scale: -1;
 
 $light-theme: mat.define-theme(
@@ -34,10 +133,7 @@ $dark-theme: mat.define-theme(
 );
 
 @mixin apply-theme($theme) {
+  @include mat.system-level-colors($theme);
   @include mat.all-component-themes($theme);
   @include mat.color-variants-backwards-compatibility($theme);
-  .mat-toolbar {
-    background: mat.get-theme-color($theme, primary-container);
-    color: mat.get-theme-color($theme, on-primary-container);
-  }
 }

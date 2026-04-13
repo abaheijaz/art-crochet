@@ -1,0 +1,58 @@
+<section class="gallery">
+  <mat-card class="gallery__surface" appearance="outlined">
+    <mat-card-content>
+      @if (isLoading()) {
+        <p class="gallery__state">Loading pictures...</p>
+      } @else if (errorMessage()) {
+        <p class="gallery__state gallery__state--error">{{ errorMessage() }}</p>
+      } @else if (pictures().length === 0) {
+        <p class="gallery__state">No pictures available yet.</p>
+      } @else {
+        <mat-button-toggle-group
+          class="product-tabs"
+          [value]="selectedProductType()"
+          aria-label="Select a product type"
+          (change)="selectProductType($event.value)"
+        >
+          @for (tab of productTabsWithCounts(); track tab.value) {
+            <mat-button-toggle class="product-tabs__button" [value]="tab.value">
+              <span>{{ tab.label }}</span>
+              <span class="product-tabs__count">{{ tab.count }}</span>
+            </mat-button-toggle>
+          }
+        </mat-button-toggle-group>
+
+        <div class="gallery__panel">
+          @if (visiblePictures().length === 0) {
+            <p class="gallery__state">{{ selectedTabEmptyState() }}</p>
+          } @else {
+            <div class="pictures-grid">
+              @for (picture of visiblePictures(); track picture.permalink) {
+                <a
+                  class="picture-card"
+                  [href]="picture.permalink"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  [attr.aria-label]="'Open Instagram post: ' + (picture.caption || 'Picture')"
+                >
+                  <img
+                    class="picture-card__image"
+                    [src]="picture.picture_url"
+                    [alt]="picture.caption || 'Instagram picture'"
+                    loading="lazy"
+                  />
+                </a>
+              }
+            </div>
+
+            <div class="gallery__feed-status" aria-live="polite">
+              Showing {{ visiblePictures().length }} of {{ filteredPictures().length }} pictures.
+            </div>
+
+            <div #scrollSentinel class="scroll-sentinel" [attr.aria-hidden]="true"></div>
+          }
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</section>

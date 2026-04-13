@@ -4,13 +4,13 @@
 html,
 body {
   @include apply-theme($light-theme);
-  color-scheme: light;
   font-family: Roboto, Arial, sans-serif;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
   margin: 0;
   height: 100%;
 }
 
 body[theme='dark-theme'] {
   @include apply-theme($dark-theme);
-  color-scheme: dark;
 }

@@ -1,0 +1,20 @@
+<nav class="section-nav" aria-label="Section navigation">
+  <a
+    class="section-nav__link"
+    routerLink="/"
+    routerLinkActive="section-nav__link--active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    ariaCurrentWhenActive="page"
+  >
+    Gallery
+  </a>
+  <span class="section-nav__divider" aria-hidden="true"></span>
+  <a
+    class="section-nav__link"
+    routerLink="/my-story"
+    routerLinkActive="section-nav__link--active"
+    ariaCurrentWhenActive="page"
+  >
+    My Story
+  </a>
+</nav>

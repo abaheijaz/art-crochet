@@ -1,0 +1,51 @@
+.introduction__card {
+  display: block;
+  width: min(100%, 48rem);
+  margin: 2rem auto 0;
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.introduction__card mat-card-content {
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.introduction__eyebrow {
+  color: var(--mat-sys-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+}
+
+.introduction__title {
+  color: var(--mat-sys-on-surface);
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(1.8rem, 4.2vw, 3rem);
+  line-height: 0.98;
+  margin: 0 0 1rem;
+  white-space: nowrap;
+}
+
+.introduction__title-tail {
+  white-space: nowrap;
+}
+
+.introduction__icon {
+  display: inline;
+  font-size: 0.75em;
+  line-height: 1;
+  margin-left: 0.12em;
+}
+
+.introduction__body {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+  text-align: justify;
+}
+
+.introduction__body + .introduction__body {
+  margin-top: 1rem;
+}

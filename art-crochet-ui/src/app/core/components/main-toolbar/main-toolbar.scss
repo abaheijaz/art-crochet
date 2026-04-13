@@ -1,0 +1,77 @@
+.top-banner {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0.75rem 1rem 0;
+  background: #e8ddcf;
+}
+
+.top-banner__semicircle {
+  width: min(32rem, 92vw);
+  aspect-ratio: 2 / 1;
+  border: 2px solid color-mix(in srgb, var(--mat-sys-primary) 60%, #8f6d25 40%);
+  border-bottom: 0;
+  border-radius: 999rem 999rem 0 0;
+  background-image: url('/LogoXima.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% 200%;
+}
+
+mat-toolbar {
+  min-height: 4.5rem;
+  justify-content: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+}
+
+.toolbar-title-samples {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1.5rem;
+  row-gap: 0.35rem;
+}
+
+.toolbar-title {
+  color: var(--mat-sys-primary);
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.toolbar-title--montez {
+  font-family: 'Montez', 'Brush Script MT', 'Lucida Calligraphy', cursive;
+}
+
+.toolbar-title--italianno {
+  font-family: 'Italianno', 'Brush Script MT', 'Lucida Calligraphy', cursive;
+}
+
+.toolbar-title--short-stack {
+  font-family: 'Short Stack', 'Comic Sans MS', cursive;
+}
+
+.toolbar-title--crafty-girls {
+  font-family: 'Crafty Girls', 'Comic Sans MS', cursive;
+}
+
+@media (max-width: 640px) {
+  .top-banner {
+    padding-top: 0.5rem;
+  }
+
+  .top-banner__semicircle {
+    width: min(22rem, 94vw);
+  }
+
+  mat-toolbar {
+    padding: 1rem;
+  }
+
+  .toolbar-title-samples {
+    flex-direction: column;
+    row-gap: 0.2rem;
+  }
+}
