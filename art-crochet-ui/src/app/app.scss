@@ -1,0 +1,9 @@
+html,
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+.app-shell {
+  min-height: calc(100vh - 4.5rem);
+}

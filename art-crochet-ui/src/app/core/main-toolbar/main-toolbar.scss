@@ -1,12 +1,56 @@
 mat-toolbar {
   min-height: 4.5rem;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
 }
 
 .toolbar-title {
+  color: var(--mat-sys-primary);
+  text-decoration: none;
   font-family: 'Cormorant Garamond', 'Times New Roman', serif;
   font-size: clamp(1.5rem, 2vw, 2rem);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.toolbar-title:focus-visible,
+.toolbar-link:focus-visible {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 3px;
+}
+
+.toolbar-nav {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.toolbar-link {
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.toolbar-link--active {
+  background-color: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+}
+
+@media (max-width: 640px) {
+  mat-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .toolbar-nav {
+    width: 100%;
+  }
+
+  .toolbar-link {
+    flex: 1 1 0;
+    text-align: center;
+  }
 }

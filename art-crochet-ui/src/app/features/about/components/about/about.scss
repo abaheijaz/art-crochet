@@ -1,0 +1,49 @@
+.about {
+  display: grid;
+  min-height: calc(100vh - 4.5rem);
+  padding: 2rem 1.5rem 3rem;
+  place-items: center;
+}
+
+.about__card {
+  width: min(100%, 48rem);
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.about__card mat-card-content {
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.about__eyebrow {
+  color: var(--mat-sys-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.about__title {
+  color: var(--mat-sys-on-surface);
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 0.98;
+  margin: 0 0 1rem;
+}
+
+.about__body {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.about__body + .about__body {
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .about {
+    padding: 1.25rem 1rem 2rem;
+  }
+}

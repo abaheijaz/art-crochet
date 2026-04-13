@@ -1,11 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
 import { MainToolbar } from './core/main-toolbar/main-toolbar';
-import { Dashboard } from './features/dashboard/components/dashboard/dashboard';
 
 @Component({
   selector: 'app-root',
-  imports: [MainToolbar, Dashboard],
+  imports: [MainToolbar, RouterOutlet],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {}

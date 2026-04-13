@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
   ElementRef,
+  OnInit,
   computed,
   effect,
   inject,
@@ -10,6 +10,9 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+
 import {
   InstagramPictureItem,
   InstagramPicturesService,
@@ -53,13 +56,13 @@ const PRODUCT_TABS: ProductTab[] = [
 const PICTURE_BATCH_SIZE = 12;
 
 @Component({
-  selector: 'app-dashboard',
-  imports: [],
-  templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss',
+  selector: 'app-gallery',
+  imports: [MatButtonToggleModule, MatCardModule],
+  templateUrl: './gallery.html',
+  styleUrl: './gallery.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Dashboard implements OnInit {
+export class Gallery implements OnInit {
   private readonly instagramPicturesService = inject(InstagramPicturesService);
   readonly scrollSentinel = viewChild<ElementRef<HTMLDivElement>>('scrollSentinel');
 
