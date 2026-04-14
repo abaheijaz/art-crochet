@@ -3,13 +3,17 @@
   justify-content: center;
   align-items: flex-end;
   padding: 0.75rem 1rem 0;
-  background: #e8ddcf;
+  background: color-mix(
+    in srgb,
+    var(--mat-sys-surface-container-low) 76%,
+    var(--mat-sys-tertiary-container) 24%
+  );
 }
 
 .top-banner__semicircle {
   width: min(32rem, 92vw);
   aspect-ratio: 2 / 1;
-  border: 2px solid color-mix(in srgb, var(--mat-sys-primary) 60%, #8f6d25 40%);
+  border: 2px solid color-mix(in srgb, var(--mat-sys-primary) 62%, var(--mat-sys-tertiary) 38%);
   border-bottom: 0;
   border-radius: 999rem 999rem 0 0;
   background-image: url('/LogoXima.png');
