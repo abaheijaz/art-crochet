@@ -10,9 +10,10 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 import {
   InstagramPictureItem,
@@ -58,7 +59,7 @@ const PICTURE_BATCH_SIZE = 12;
 
 @Component({
   selector: 'app-gallery',
-  imports: [MatButtonToggleModule, MatCardModule, MatIconModule],
+  imports: [MatCardModule, MatFormFieldModule, MatOptionModule, MatSelectModule],
   templateUrl: './gallery.html',
   styleUrl: './gallery.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -84,6 +85,10 @@ export class Gallery implements OnInit {
       ...tab,
       count: this.pictures().filter((picture) => picture.product_type === tab.value).length,
     })),
+  );
+  readonly selectedProductTab = computed(
+    () =>
+      this.productTabsWithCounts().find((tab) => tab.value === this.selectedProductType()) ?? null,
   );
   readonly hasMorePictures = computed(
     () => this.visiblePictures().length < this.filteredPictures().length,
@@ -142,6 +147,14 @@ export class Gallery implements OnInit {
 
   selectProductType(productType: ProductType) {
     this.selectedProductType.set(productType);
+  }
+
+  handleProductTypeSelection(productType: ProductType | null) {
+    if (!productType) {
+      return;
+    }
+
+    this.selectProductType(productType);
   }
 
   private loadMorePictures() {

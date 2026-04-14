@@ -8,19 +8,32 @@
       } @else if (pictures().length === 0) {
         <p class="gallery__state">No pictures available yet.</p>
       } @else {
-        <mat-button-toggle-group
-          class="product-tabs"
-          [value]="selectedProductType()"
-          aria-label="Select a product type"
-          (change)="selectProductType($event.value)"
-        >
-          @for (tab of productTabsWithCounts(); track tab.value) {
-            <mat-button-toggle class="product-tabs__button" [value]="tab.value">
-              <span>{{ tab.label }}</span>
-              <span class="product-tabs__count">{{ tab.count }}</span>
-            </mat-button-toggle>
-          }
-        </mat-button-toggle-group>
+        <mat-form-field class="product-tabs" appearance="outline" subscriptSizing="dynamic">
+          <mat-label>Product Type</mat-label>
+          <mat-select
+            [value]="selectedProductType()"
+            aria-label="Select a product type"
+            (selectionChange)="handleProductTypeSelection($event.value)"
+          >
+            <mat-select-trigger>
+              @if (selectedProductTab(); as selectedTab) {
+                <span class="product-tabs__trigger">
+                  <span>{{ selectedTab.label }}</span>
+                  <span class="product-tabs__count">{{ selectedTab.count }}</span>
+                </span>
+              }
+            </mat-select-trigger>
+
+            @for (tab of productTabsWithCounts(); track tab.value) {
+              <mat-option [value]="tab.value">
+                <span class="product-tabs__option">
+                  <span>{{ tab.label }}</span>
+                  <span class="product-tabs__count">{{ tab.count }}</span>
+                </span>
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
 
         <div class="gallery__panel">
           @if (visiblePictures().length === 0) {

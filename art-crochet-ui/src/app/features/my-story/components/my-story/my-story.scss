@@ -31,15 +31,41 @@
   margin: 0 0 1rem;
 }
 
+.my-story__section + .my-story__section {
+  margin-top: 1.5rem;
+}
+
 .my-story__body {
   color: var(--mat-sys-on-surface-variant);
-  font-size: 1rem;
+  font-size: clamp(1rem, 1.1vw, 1.08rem);
   line-height: 1.7;
   margin: 0;
 }
 
 .my-story__body + .my-story__body {
   margin-top: 1rem;
+}
+
+.my-story__lead {
+  color: var(--mat-sys-on-surface);
+}
+
+.my-story__link {
+  color: var(--mat-sys-primary);
+  font-weight: 600;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+}
+
+.my-story__link:hover {
+  color: var(--mat-sys-primary);
+  text-decoration-thickness: 0.12em;
+}
+
+.my-story__link:focus-visible {
+  border-radius: 0.125rem;
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
 }
 
 @media (max-width: 600px) {
