@@ -2,7 +2,7 @@
 @include mat.core();
 
 $primary-palette: mat.$spring-green-palette;
-$tertiary-palette: (
+$chocolate-palette: (
   0: #000000,
   10: #26160d,
   20: #3d2a1d,
@@ -109,7 +109,7 @@ $light-theme: mat.define-theme(
     color: (
       theme-type: light,
       primary: $primary-palette,
-      tertiary: $tertiary-palette,
+      tertiary: $chocolate-palette,
     ),
 
     density: (
@@ -123,7 +123,7 @@ $dark-theme: mat.define-theme(
     color: (
       theme-type: dark,
       primary: $primary-palette,
-      tertiary: $tertiary-palette,
+      tertiary: $chocolate-palette,
     ),
 
     density: (
