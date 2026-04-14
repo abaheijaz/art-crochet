@@ -4,70 +4,44 @@ import { z } from "zod";
 
 type AppContext = Context<{ Bindings: Env }>;
 
-type ProductType =
-  | "bag"
-  | "bucket-hat"
-  | "coaster"
-  | "lipbalm-holder"
-  | "others";
-
-const productTypeMatchers: ReadonlyArray<{
-  productType: ProductType;
-  keywords: string[];
-}> = [
-  {
-    productType: "bucket-hat",
-    keywords: ["bucket hat", "buckethat", "crochet bucket hat"],
-  },
-  {
-    productType: "lipbalm-holder",
-    keywords: [
-      "lipbalm",
-      "lip balm",
-      "lipbalm holder",
-      "lipbalm case",
-      "lipbalm pouch",
-      "inhaler",
-      "inhaler holder",
-      "inhaler case",
-      "inhaler pouch",
-    ],
-  },
-  {
-    productType: "coaster",
-    keywords: ["coaster", "coasters"],
-  },
-  {
-    productType: "bag",
-    keywords: ["crochet bag", "tote bag", "shoulder bag", "handbag", "bag"],
-  },
-];
-
-function normalizeText(value: string): string {
-  return ` ${value
+function toProductTypeSlug(value: string): string {
+  return value
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2")
+    .replace(/[^a-zA-Z0-9]+/g, " ")
+    .trim()
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim()} `;
+    .replace(/\s+/g, "-");
 }
 
-function classifyProductType(caption?: string | null): ProductType {
+function extractWebximaProductTypes(caption?: string | null): string[] {
   if (!caption) {
-    return "others";
+    return [];
   }
 
-  const normalizedCaption = normalizeText(caption);
+  const hashtags = caption.match(/#[\w]+/g) ?? [];
+  const productTypes = new Set<string>();
 
-  for (const matcher of productTypeMatchers) {
-    if (
-      matcher.keywords.some((keyword) =>
-        normalizedCaption.includes(normalizeText(keyword)),
-      )
-    ) {
-      return matcher.productType;
+  for (const hashtag of hashtags) {
+    const token = hashtag.slice(1);
+    const segments = token.split("_");
+
+    if (segments.length < 3 || segments[0].toLowerCase() !== "ximaweb") {
+      continue;
+    }
+
+    const productToken = segments[1]?.trim();
+    if (!productToken) {
+      continue;
+    }
+
+    const productType = toProductTypeSlug(productToken);
+    if (productType) {
+      productTypes.add(productType);
     }
   }
 
-  return "others";
+  return Array.from(productTypes);
 }
 
 function hasExcludedHashtag(caption?: string | null): boolean {
@@ -107,13 +81,7 @@ const pictureSchema = z.object({
   caption: z.string().nullable().optional(),
   timestamp: z.string(),
   media_type: z.string(),
-  product_type: z.enum([
-    "bag",
-    "bucket-hat",
-    "coaster",
-    "lipbalm-holder",
-    "others",
-  ]),
+  product_type: z.string().min(1),
 });
 
 export class InstagramPictures extends OpenAPIRoute {
@@ -222,13 +190,18 @@ export class InstagramPictures extends OpenAPIRoute {
       .filter((item) => item.media_url || item.thumbnail_url)
       .filter((item) => !hasExcludedHashtag(item.caption))
       .map((picture) => ({
+        picture,
+        productTypes: extractWebximaProductTypes(picture.caption),
+      }))
+      .filter(({ productTypes }) => productTypes.length === 1)
+      .map(({ picture, productTypes }) => ({
         source: "instagram_graph_api" as const,
         picture_url: picture.media_url || picture.thumbnail_url || "",
         permalink: picture.permalink,
         caption: picture.caption,
         timestamp: picture.timestamp,
         media_type: picture.media_type,
-        product_type: classifyProductType(picture.caption),
+        product_type: productTypes[0],
       }));
 
     return {

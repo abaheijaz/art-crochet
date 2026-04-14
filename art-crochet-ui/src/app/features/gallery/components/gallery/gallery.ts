@@ -27,33 +27,17 @@ interface ProductTab {
   emptyState: string;
 }
 
-const PRODUCT_TABS: ProductTab[] = [
-  {
-    value: 'bag',
-    label: 'Bag',
-    emptyState: 'No bag pictures are available yet.',
-  },
-  {
-    value: 'bucket-hat',
-    label: 'Bucket Hat',
-    emptyState: 'No bucket hat pictures are available yet.',
-  },
-  {
-    value: 'coaster',
-    label: 'Coaster',
-    emptyState: 'No coaster pictures are available yet.',
-  },
-  {
-    value: 'lipbalm-holder',
-    label: 'Lipbalm Holder',
-    emptyState: 'No lipbalm holder pictures are available yet.',
-  },
-  {
-    value: 'others',
-    label: 'Others',
-    emptyState: 'No other crochet pictures are available yet.',
-  },
-];
+function toProductLabel(productType: ProductType): string {
+  return productType
+    .split('-')
+    .filter((segment) => segment.length > 0)
+    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join(' ');
+}
+
+function toProductEmptyState(label: string): string {
+  return `No ${label.toLowerCase()} pictures are available yet.`;
+}
 
 const PICTURE_BATCH_SIZE = 12;
 
@@ -68,20 +52,39 @@ export class Gallery implements OnInit {
   private readonly instagramPicturesService = inject(InstagramPicturesService);
   readonly scrollSentinel = viewChild<ElementRef<HTMLDivElement>>('scrollSentinel');
 
-  readonly productTabs = PRODUCT_TABS;
   readonly pictures = signal<InstagramPictureItem[]>([]);
   readonly isLoading = signal(true);
   readonly errorMessage = signal<string | null>(null);
-  readonly selectedProductType = signal<ProductType>('bag');
+  readonly selectedProductType = signal<ProductType | null>(null);
   readonly visiblePictureCount = signal(PICTURE_BATCH_SIZE);
+  readonly productTabs = computed<ProductTab[]>(() => {
+    const productTypes = Array.from(
+      new Set(
+        this.pictures()
+          .map((picture) => picture.product_type)
+          .filter(Boolean),
+      ),
+    );
+
+    return productTypes.map((productType) => {
+      const label = toProductLabel(productType);
+      return {
+        value: productType,
+        label,
+        emptyState: toProductEmptyState(label),
+      };
+    });
+  });
   readonly filteredPictures = computed(() =>
-    this.pictures().filter((picture) => picture.product_type === this.selectedProductType()),
+    this.selectedProductType()
+      ? this.pictures().filter((picture) => picture.product_type === this.selectedProductType())
+      : [],
   );
   readonly visiblePictures = computed(() =>
     this.filteredPictures().slice(0, this.visiblePictureCount()),
   );
   readonly productTabsWithCounts = computed(() =>
-    this.productTabs.map((tab) => ({
+    this.productTabs().map((tab) => ({
       ...tab,
       count: this.pictures().filter((picture) => picture.product_type === tab.value).length,
     })),
@@ -95,11 +98,31 @@ export class Gallery implements OnInit {
   );
   readonly selectedTabEmptyState = computed(
     () =>
-      this.productTabs.find((tab) => tab.value === this.selectedProductType())?.emptyState ??
+      this.productTabs().find((tab) => tab.value === this.selectedProductType())?.emptyState ??
       'No pictures are available yet.',
   );
 
   constructor() {
+    effect(() => {
+      const productTabs = this.productTabs();
+      const selectedProductType = this.selectedProductType();
+
+      if (productTabs.length === 0) {
+        if (selectedProductType !== null) {
+          untracked(() => {
+            this.selectedProductType.set(null);
+          });
+        }
+        return;
+      }
+
+      if (!selectedProductType || !productTabs.some((tab) => tab.value === selectedProductType)) {
+        untracked(() => {
+          this.selectedProductType.set(productTabs[0].value);
+        });
+      }
+    });
+
     effect(() => {
       this.selectedProductType();
 

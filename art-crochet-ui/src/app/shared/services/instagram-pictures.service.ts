@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
-export type ProductType = 'bag' | 'bucket-hat' | 'coaster' | 'lipbalm-holder' | 'others';
+export type ProductType = string;
 
 export interface InstagramPictureItem {
   source: 'instagram_graph_api';
