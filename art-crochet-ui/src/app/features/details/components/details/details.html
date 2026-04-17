@@ -1,0 +1,108 @@
+<section class="product-detail">
+  <mat-card class="product-detail__surface" appearance="outlined">
+    <mat-card-content>
+      @if (isLoadingPictures() && productOptions().length === 0) {
+        <p class="product-detail__state">Loading product details...</p>
+      } @else if (productOptions().length === 0) {
+        <p class="product-detail__state">No product types available yet.</p>
+      } @else {
+        <mat-form-field class="product-type-select" appearance="outline" subscriptSizing="dynamic">
+          <mat-label>Product Type</mat-label>
+          <mat-select
+            [value]="selectedProductType()"
+            aria-label="Select a product type"
+            (selectionChange)="handleProductTypeSelection($event.value)"
+          >
+            @for (option of productOptions(); track option.value) {
+              <mat-option [value]="option.value">{{ option.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        @if (isUnknownType()) {
+          <p class="product-detail__state product-detail__state--error">
+            Product type not found. Please select a valid type from the dropdown above.
+          </p>
+        } @else if (!selectedProductType()) {
+          <p class="product-detail__state">Select a product type to see details.</p>
+        } @else {
+          @if (!isLoadingPictures() && collageImages().length > 0) {
+            <div
+              class="collage"
+              role="img"
+              [attr.aria-label]="(currentDetail()?.displayName ?? 'Product') + ' photo collage'"
+            >
+              @for (picture of collageImages(); track picture.permalink) {
+                <div class="collage__cell">
+                  <img
+                    class="collage__image"
+                    [src]="picture.picture_url"
+                    [alt]="picture.caption || 'Product picture'"
+                    loading="lazy"
+                  />
+                </div>
+              }
+            </div>
+          }
+
+          @if (currentDetail(); as detail) {
+            <div class="detail-section">
+              <h1 class="detail-section__title">{{ detail.displayName }}</h1>
+              <p class="detail-section__description">{{ detail.description }}</p>
+
+              <div class="detail-grid">
+                <div class="detail-card">
+                  <h2 class="detail-card__label">
+                    <mat-icon class="detail-card__icon" aria-hidden="true">straighten</mat-icon>
+                    Sizes
+                  </h2>
+                  <mat-chip-set aria-label="Available sizes">
+                    @for (size of detail.sizes; track size) {
+                      <mat-chip>{{ size }}</mat-chip>
+                    }
+                  </mat-chip-set>
+                </div>
+
+                <div class="detail-card">
+                  <h2 class="detail-card__label">
+                    <mat-icon class="detail-card__icon" aria-hidden="true">texture</mat-icon>
+                    Thread Used
+                  </h2>
+                  <p class="detail-card__value">{{ detail.threadUsed }}</p>
+                </div>
+
+                <div class="detail-card">
+                  <h2 class="detail-card__label">
+                    <mat-icon class="detail-card__icon" aria-hidden="true">palette</mat-icon>
+                    Available Colors
+                  </h2>
+                  <mat-chip-set aria-label="Available colors">
+                    @for (color of detail.availableColors; track color) {
+                      <mat-chip>{{ color }}</mat-chip>
+                    }
+                  </mat-chip-set>
+                </div>
+
+                <div class="detail-card">
+                  <h2 class="detail-card__label">
+                    <mat-icon class="detail-card__icon" aria-hidden="true">schedule</mat-icon>
+                    Time to Make
+                  </h2>
+                  <p class="detail-card__value">{{ detail.timeToMake }}</p>
+                </div>
+              </div>
+
+              @if (detail.notes) {
+                <p class="detail-section__notes">{{ detail.notes }}</p>
+              }
+            </div>
+          } @else {
+            <p class="product-detail__state product-detail__state--missing">
+              No details available yet for this product type.
+            </p>
+          }
+        }
+      }
+    </mat-card-content>
+  </mat-card>
+</section>

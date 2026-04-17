@@ -10,10 +10,16 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import {
+  PicturePickDialog,
+  PicturePickDialogData,
+} from '../picture-pick-dialog/picture-pick-dialog';
 
 import {
   InstagramPictureItem,
@@ -50,6 +56,8 @@ const PICTURE_BATCH_SIZE = 12;
 })
 export class Gallery implements OnInit {
   private readonly instagramPicturesService = inject(InstagramPicturesService);
+  private readonly dialog = inject(MatDialog);
+  private readonly router = inject(Router);
   readonly scrollSentinel = viewChild<ElementRef<HTMLDivElement>>('scrollSentinel');
 
   readonly pictures = signal<InstagramPictureItem[]>([]);
@@ -166,6 +174,25 @@ export class Gallery implements OnInit {
     } finally {
       this.isLoading.set(false);
     }
+  }
+
+  openPictureOptions(picture: InstagramPictureItem): void {
+    const dialogRef = this.dialog.open<PicturePickDialog, PicturePickDialogData, string>(
+      PicturePickDialog,
+      {
+        data: { picture },
+        maxWidth: '28rem',
+        width: '100%',
+      },
+    );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'instagram') {
+        window.open(picture.permalink, '_blank', 'noopener,noreferrer');
+      } else if (result === 'product-detail') {
+        this.router.navigate(['/details', picture.product_type]);
+      }
+    });
   }
 
   selectProductType(productType: ProductType) {

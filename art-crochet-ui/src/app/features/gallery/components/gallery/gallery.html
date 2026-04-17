@@ -41,12 +41,11 @@
           } @else {
             <div class="pictures-grid">
               @for (picture of visiblePictures(); track picture.permalink) {
-                <a
+                <button
                   class="picture-card"
-                  [href]="picture.permalink"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  [attr.aria-label]="'Open Instagram post: ' + (picture.caption || 'Picture')"
+                  type="button"
+                  (click)="openPictureOptions(picture)"
+                  [attr.aria-label]="'View options for: ' + (picture.caption || 'picture')"
                 >
                   <img
                     class="picture-card__image"
@@ -54,7 +53,7 @@
                     [alt]="picture.caption || 'Instagram picture'"
                     loading="lazy"
                   />
-                </a>
+                </button>
               }
             </div>
 
