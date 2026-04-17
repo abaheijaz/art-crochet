@@ -181,8 +181,8 @@ export class Gallery implements OnInit {
       PicturePickDialog,
       {
         data: { picture },
-        maxWidth: '28rem',
-        width: '100%',
+        maxWidth: '24rem',
+        width: 'calc(100% - 2rem)',
       },
     );
 

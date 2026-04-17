@@ -1,7 +1,11 @@
 .dialog__title {
   margin: 0;
+  text-align: center;
 }
 
 .dialog__actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
   gap: 0.5rem;
 }
