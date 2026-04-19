@@ -2,10 +2,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  Type,
   computed,
   inject,
   signal,
 } from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,7 +22,15 @@ import {
   InstagramPicturesService,
   ProductType,
 } from '../../../../shared/services/instagram-pictures.service';
-import { ProductDetail, PRODUCT_DETAILS_DATA } from '../../../../shared/models/details.model';
+import { MiniToteBag } from '../mini-tote-bag/mini-tote-bag';
+import { BucketHat } from '../bucket-hat/bucket-hat';
+import { PhoneBag } from '../phone-bag/phone-bag';
+
+const DETAIL_COMPONENT_REGISTRY: Partial<Record<ProductType, Type<unknown>>> = {
+  'mini-tote-bag': MiniToteBag,
+  'bucket-hat': BucketHat,
+  'phone-bag': PhoneBag,
+};
 
 interface ProductOption {
   value: ProductType;
@@ -38,6 +48,7 @@ function toProductLabel(productType: ProductType): string {
 @Component({
   selector: 'app-detail',
   imports: [
+    NgComponentOutlet,
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -70,10 +81,10 @@ export class Details implements OnInit {
     return types.map((value) => ({ value, label: toProductLabel(value) }));
   });
 
-  readonly currentDetail = computed<ProductDetail | null>(() => {
+  readonly currentDetailComponent = computed<Type<unknown> | null>(() => {
     const type = this.selectedProductType();
     if (!type) return null;
-    return PRODUCT_DETAILS_DATA[type] ?? null;
+    return DETAIL_COMPONENT_REGISTRY[type] ?? null;
   });
 
   readonly filteredPictures = computed(() =>
