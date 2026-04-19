@@ -4,6 +4,7 @@ import {
   OnInit,
   Type,
   computed,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -31,6 +32,8 @@ const DETAIL_COMPONENT_REGISTRY: Partial<Record<ProductType, Type<unknown>>> = {
   'bucket-hat': BucketHat,
   'phone-bag': PhoneBag,
 };
+
+const RECENT_PRODUCT_TYPE_KEY = 'recentSelectedProductType';
 
 interface ProductOption {
   value: ProductType;
@@ -124,8 +127,20 @@ export class Details implements OnInit {
     return this.productOptions().length > 0 && !this.productOptions().some((o) => o.value === type);
   });
 
+  constructor() {
+    effect(() => {
+      const productType = this.selectedProductType();
+      if (!productType) {
+        return;
+      }
+
+      this.cacheSelectedProductType(productType);
+    });
+  }
+
   async ngOnInit() {
     const paramType = this.route.snapshot.paramMap.get('productType');
+    const cachedProductType = this.getCachedProductType();
 
     try {
       const pictures = await this.instagramPicturesService.getLatestPictures();
@@ -136,17 +151,39 @@ export class Details implements OnInit {
       this.isLoadingPictures.set(false);
     }
 
-    if (paramType) {
-      this.selectedProductType.set(paramType);
-    } else {
-      const first = this.productOptions()[0]?.value ?? null;
-      this.selectedProductType.set(first);
+    const requestedProductType = paramType ?? cachedProductType;
+
+    if (
+      requestedProductType &&
+      this.productOptions().some((option) => option.value === requestedProductType)
+    ) {
+      this.selectedProductType.set(requestedProductType);
+      return;
     }
+
+    const first = this.productOptions()[0]?.value ?? null;
+    this.selectedProductType.set(first);
   }
 
   handleProductTypeSelection(productType: ProductType | null): void {
     if (!productType) return;
     this.selectedProductType.set(productType);
     this.router.navigate(['/details', productType], { replaceUrl: true });
+  }
+
+  private getCachedProductType(): ProductType | null {
+    try {
+      return sessionStorage.getItem(RECENT_PRODUCT_TYPE_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  private cacheSelectedProductType(productType: ProductType): void {
+    try {
+      sessionStorage.setItem(RECENT_PRODUCT_TYPE_KEY, productType);
+    } catch {
+      // Ignore storage failures.
+    }
   }
 }

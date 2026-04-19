@@ -46,6 +46,7 @@ function toProductEmptyState(label: string): string {
 }
 
 const PICTURE_BATCH_SIZE = 12;
+const RECENT_PRODUCT_TYPE_KEY = 'recentSelectedProductType';
 
 @Component({
   selector: 'app-gallery',
@@ -126,9 +127,18 @@ export class Gallery implements OnInit {
 
       if (!selectedProductType || !productTabs.some((tab) => tab.value === selectedProductType)) {
         untracked(() => {
-          this.selectedProductType.set(productTabs[0].value);
+          const cachedProductType = this.getCachedProductType();
+          const nextProductType =
+            cachedProductType && productTabs.some((tab) => tab.value === cachedProductType)
+              ? cachedProductType
+              : productTabs[0].value;
+          this.selectedProductType.set(nextProductType);
         });
       }
+    });
+
+    effect(() => {
+      this.cacheSelectedProductType(this.selectedProductType());
     });
 
     effect(() => {
@@ -166,6 +176,11 @@ export class Gallery implements OnInit {
   }
 
   async ngOnInit() {
+    const cachedProductType = this.getCachedProductType();
+    if (cachedProductType) {
+      this.selectedProductType.set(cachedProductType);
+    }
+
     try {
       const pictures = await this.instagramPicturesService.getLatestPictures();
       this.pictures.set(pictures);
@@ -215,5 +230,25 @@ export class Gallery implements OnInit {
     this.visiblePictureCount.update((currentCount) =>
       Math.min(currentCount + PICTURE_BATCH_SIZE, this.filteredPictures().length),
     );
+  }
+
+  private getCachedProductType(): ProductType | null {
+    try {
+      return sessionStorage.getItem(RECENT_PRODUCT_TYPE_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  private cacheSelectedProductType(productType: ProductType | null): void {
+    if (!productType) {
+      return;
+    }
+
+    try {
+      sessionStorage.setItem(RECENT_PRODUCT_TYPE_KEY, productType);
+    } catch {
+      // Ignore storage failures.
+    }
   }
 }
