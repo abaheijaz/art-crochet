@@ -52,8 +52,25 @@
 
 .introduction__contact-link {
   align-items: center;
+  color: var(--mat-sys-primary);
   display: inline-flex;
   gap: 0.3rem;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.introduction__contact-link:visited {
+  color: var(--mat-sys-primary);
+}
+
+.introduction__contact-link:hover {
+  color: var(--mat-sys-primary);
+  text-decoration-thickness: 0.12em;
+}
+
+.introduction__contact-link:focus-visible {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
 }
 
 .introduction__contact-icon {
