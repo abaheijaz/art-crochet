@@ -226,7 +226,9 @@ export class InstagramPictures extends OpenAPIRoute {
       }))
       .map(({ picture, tagData }) => ({
         picture,
-        productTypes: Array.from(new Set(tagData.map((entry) => entry.productType))),
+        productTypes: Array.from(
+          new Set(tagData.map((entry) => entry.productType)),
+        ),
         productVariants: Array.from(
           new Set(
             tagData
