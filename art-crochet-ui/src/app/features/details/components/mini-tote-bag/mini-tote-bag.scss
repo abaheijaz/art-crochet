@@ -1,66 +1,253 @@
-.detail-section {
-  display: flex;
-  flex-direction: column;
+.mini-tote {
+  display: grid;
   gap: 1rem;
 }
 
-.detail-section__title {
+.mini-tote__heading {
+  padding: 0.1rem 0 0.2rem;
+}
+
+.mini-tote__title {
   color: var(--mat-sys-on-surface);
   font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
-  line-height: 1;
+  font-size: clamp(1.9rem, 4.2vw, 2.6rem);
+  line-height: 0.95;
   margin: 0;
 }
 
-.detail-section__description {
-  color: var(--mat-sys-on-surface-variant);
-  line-height: 1.6;
+.mini-tote__price {
+  color: var(--mat-sys-on-surface);
+  font-size: 0.9rem;
+  font-weight: 700;
   margin: 0;
-  max-width: 52rem;
 }
 
-.detail-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.detail-card {
+.mini-tote__card,
+.mini-tote__story {
   background: var(--mat-sys-surface-container);
   border: 1px solid var(--mat-sys-outline-variant);
-  border-radius: 0.75rem;
-  padding: 1rem 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+  border-radius: 0.9rem;
+  padding: 1rem 1.1rem;
 }
 
-.detail-card__label {
-  color: var(--mat-sys-on-surface-variant);
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin: 0;
-  display: flex;
+.mini-tote__section-title {
   align-items: center;
-  gap: 0.4rem;
+  color: var(--mat-sys-on-surface);
+  display: flex;
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(1.35rem, 2.5vw, 1.7rem);
+  gap: 0.45rem;
+  margin: 0 0 0.75rem;
 }
 
-.detail-card__icon {
-  font-size: 1rem;
-  width: 1rem;
-  height: 1rem;
+.mini-tote__icon {
+  color: var(--mat-sys-primary);
+  font-size: 1.05rem;
+  height: 1.05rem;
+  width: 1.05rem;
 }
 
-.detail-card__value {
+.mini-tote__size-list {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.mini-tote__size-item {
+  background: var(--mat-sys-surface-container-low);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+}
+
+.mini-tote__size-item dt {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.mini-tote__size-item dd {
+  color: var(--mat-sys-on-surface);
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(1.2rem, 3vw, 1.45rem);
+  font-weight: 600;
+  margin: 0.24rem 0 0;
+}
+
+.mini-tote__material-name {
   color: var(--mat-sys-on-surface);
   font-size: 1rem;
+  font-weight: 600;
   margin: 0;
 }
 
-@media (max-width: 900px) {
-  .detail-grid {
+.mini-tote__material-note {
+  color: var(--mat-sys-on-surface-variant);
+  font-style: italic;
+  line-height: 1.55;
+  margin: 0.35rem 0 0;
+}
+
+.mini-tote__shop-link {
+  align-items: center;
+  border: 1px solid var(--mat-sys-outline);
+  border-radius: 999px;
+  color: var(--mat-sys-primary);
+  display: inline-flex;
+  font-weight: 600;
+  gap: 0.45rem;
+  margin-top: 0.8rem;
+  padding: 0.4rem 0.72rem;
+  text-decoration: none;
+}
+
+.mini-tote__shop-link:hover {
+  background: color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+}
+
+.mini-tote__shop-link:focus-visible {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
+}
+
+.mini-tote__variants-note {
+  color: var(--mat-sys-on-surface-variant);
+  line-height: 1.55;
+  margin: 0 0 0.75rem;
+}
+
+.mini-tote__variant-list {
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mini-tote__variant-item {
+  background: var(--mat-sys-surface-container-low);
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  padding: 0.7rem 0.8rem;
+}
+
+.mini-tote__variant-type {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mini-tote__variant-values {
+  color: var(--mat-sys-on-surface);
+  line-height: 1.45;
+}
+
+.mini-tote__stitch-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mini-tote__stitch-list li {
+  align-items: baseline;
+  display: flex;
+  font-size: 0.98rem;
+  gap: 0.45rem;
+  justify-content: space-between;
+  line-height: 1.45;
+  padding: 0.45rem 0;
+}
+
+.mini-tote__stitch-list li + li {
+  border-top: 1px solid color-mix(in srgb, var(--mat-sys-outline-variant) 75%, transparent);
+}
+
+.mini-tote__stitch-list li span:first-child {
+  color: var(--mat-sys-on-surface);
+  font-weight: 600;
+}
+
+.mini-tote__stitch-list li span:last-child {
+  color: var(--mat-sys-on-surface-variant);
+  text-align: right;
+}
+
+.mini-tote__stitch-note {
+  color: var(--mat-sys-on-surface-variant);
+  font-style: italic;
+}
+
+.mini-tote__story {
+  border-left: 0.32rem solid var(--mat-sys-primary);
+  padding-left: 1rem;
+}
+
+.mini-tote__order {
+  background: var(--mat-sys-surface-container-low);
+  border: 1px dashed color-mix(in srgb, var(--mat-sys-primary) 45%, var(--mat-sys-outline-variant));
+  border-radius: 0.9rem;
+  padding: 1rem 1.1rem;
+}
+
+.mini-tote__order-note {
+  color: var(--mat-sys-on-surface-variant);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.mini-tote__order-link {
+  align-items: center;
+  color: var(--mat-sys-primary);
+  display: inline-flex;
+  font-weight: 600;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.mini-tote__order-link:hover {
+  color: var(--mat-sys-primary);
+  text-decoration-thickness: 0.12em;
+}
+
+.mini-tote__order-link:focus-visible {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
+}
+
+.mini-tote__quote {
+  color: var(--mat-sys-on-surface);
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(1.22rem, 2.4vw, 1.5rem);
+  font-style: italic;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.mini-tote__story-text {
+  color: var(--mat-sys-on-surface-variant);
+  line-height: 1.65;
+  margin: 0.85rem 0 0;
+}
+
+@media (max-width: 800px) {
+  .mini-tote__size-list {
     grid-template-columns: 1fr;
+  }
+
+  .mini-tote__stitch-list li {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .mini-tote__stitch-list li span:last-child {
+    text-align: left;
   }
 }
