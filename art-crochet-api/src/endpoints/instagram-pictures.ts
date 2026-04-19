@@ -14,13 +14,32 @@ function toProductTypeSlug(value: string): string {
     .replace(/\s+/g, "-");
 }
 
-function extractWebximaProductTypes(caption?: string | null): string[] {
+function toVariantLabel(value: string): string {
+  return value
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2")
+    .replace(/[^a-zA-Z0-9]+/g, " ")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .split(" ")
+    .filter((segment) => segment.length > 0)
+    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join(" ");
+}
+
+interface WebximaTagData {
+  productType: string;
+  variant?: string;
+}
+
+function extractWebximaTagData(caption?: string | null): WebximaTagData[] {
   if (!caption) {
     return [];
   }
 
   const hashtags = caption.match(/#[\w]+/g) ?? [];
-  const productTypes = new Set<string>();
+  const tagDataMap = new Map<string, WebximaTagData>();
 
   for (const hashtag of hashtags) {
     const token = hashtag.slice(1);
@@ -36,12 +55,23 @@ function extractWebximaProductTypes(caption?: string | null): string[] {
     }
 
     const productType = toProductTypeSlug(productToken);
-    if (productType) {
-      productTypes.add(productType);
+    if (!productType) {
+      continue;
+    }
+
+    const variantToken = segments[2]?.trim();
+    const variant = variantToken ? toVariantLabel(variantToken) : undefined;
+    const key = `${productType}::${variant ?? ""}`;
+
+    if (!tagDataMap.has(key)) {
+      tagDataMap.set(key, {
+        productType,
+        variant,
+      });
     }
   }
 
-  return Array.from(productTypes);
+  return Array.from(tagDataMap.values());
 }
 
 function hasExcludedHashtag(caption?: string | null): boolean {
@@ -82,6 +112,7 @@ const pictureSchema = z.object({
   timestamp: z.string(),
   media_type: z.string(),
   product_type: z.string().min(1),
+  product_variants: z.array(z.string().min(1)).optional(),
 });
 
 export class InstagramPictures extends OpenAPIRoute {
@@ -191,18 +222,40 @@ export class InstagramPictures extends OpenAPIRoute {
       .filter((item) => !hasExcludedHashtag(item.caption))
       .map((picture) => ({
         picture,
-        productTypes: extractWebximaProductTypes(picture.caption),
+        tagData: extractWebximaTagData(picture.caption),
+      }))
+      .map(({ picture, tagData }) => ({
+        picture,
+        productTypes: Array.from(new Set(tagData.map((entry) => entry.productType))),
+        productVariants: Array.from(
+          new Set(
+            tagData
+              .map((entry) => entry.variant)
+              .filter((variant): variant is string => Boolean(variant)),
+          ),
+        ),
       }))
       .filter(({ productTypes }) => productTypes.length === 1)
-      .map(({ picture, productTypes }) => ({
-        source: "instagram_graph_api" as const,
-        picture_url: picture.media_url || picture.thumbnail_url || "",
-        permalink: picture.permalink,
-        caption: picture.caption,
-        timestamp: picture.timestamp,
-        media_type: picture.media_type,
-        product_type: productTypes[0],
-      }));
+      .map(({ picture, productTypes, productVariants }) => {
+        const mappedPicture = {
+          source: "instagram_graph_api" as const,
+          picture_url: picture.media_url || picture.thumbnail_url || "",
+          permalink: picture.permalink,
+          caption: picture.caption,
+          timestamp: picture.timestamp,
+          media_type: picture.media_type,
+          product_type: productTypes[0],
+        };
+
+        if (productVariants.length > 0) {
+          return {
+            ...mappedPicture,
+            product_variants: productVariants,
+          };
+        }
+
+        return mappedPicture;
+      });
 
     return {
       pictures,

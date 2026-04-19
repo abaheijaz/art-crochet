@@ -42,12 +42,12 @@
                 >Body and Handle Crafted with Double Crochet.</span
               >
             </li>
-            <li class="mini-tote__feature-item mini-tote__feature-item--stacked">
-              <span class="mini-tote__feature-label">Variant</span>
-              <span class="mini-tote__feature-value"
-                >Natural, Earthy, Monochrome, or custom request.</span
-              >
-            </li>
+            @if (variants().length > 0) {
+              <li class="mini-tote__feature-item mini-tote__feature-item--stacked">
+                <span class="mini-tote__feature-label">Variant</span>
+                <span class="mini-tote__feature-value">{{ variants().join(', ') }}</span>
+              </li>
+            }
             <li class="mini-tote__feature-item mini-tote__feature-item--stacked">
               <span class="mini-tote__feature-label">Handle Length</span>
               <span class="mini-tote__feature-value"

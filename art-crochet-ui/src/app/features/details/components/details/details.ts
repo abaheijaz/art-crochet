@@ -91,7 +91,32 @@ export class Details implements OnInit {
     this.pictures().filter((p) => p.product_type === this.selectedProductType()),
   );
 
+  readonly productVariants = computed<string[]>(() => {
+    const variants = new Set<string>();
+
+    for (const picture of this.filteredPictures()) {
+      for (const variant of picture.product_variants ?? []) {
+        const normalizedVariant = variant.trim();
+        if (normalizedVariant) {
+          variants.add(normalizedVariant);
+        }
+      }
+    }
+
+    return Array.from(variants).sort((a, b) => a.localeCompare(b));
+  });
+
   readonly collageImages = computed(() => this.filteredPictures().slice(0, 5));
+
+  readonly detailComponentInputs = computed<Record<string, unknown>>(() => {
+    if (this.selectedProductType() !== 'mini-tote-bag') {
+      return {};
+    }
+
+    return {
+      variants: this.productVariants(),
+    };
+  });
 
   readonly isUnknownType = computed(() => {
     const type = this.selectedProductType();

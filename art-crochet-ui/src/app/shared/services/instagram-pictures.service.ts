@@ -12,6 +12,7 @@ export interface InstagramPictureItem {
   timestamp: string;
   media_type: string;
   product_type: ProductType;
+  product_variants?: string[];
 }
 
 interface InstagramPicturesResponse {
