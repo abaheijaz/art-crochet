@@ -24,8 +24,38 @@ interface InstagramPicturesResponse {
 })
 export class InstagramPicturesService {
   private readonly http = inject(HttpClient);
+  private static readonly CACHE_TTL_MS = 10 * 60 * 1000;
 
-  async getLatestPictures(): Promise<InstagramPictureItem[]> {
+  private cachedPictures: InstagramPictureItem[] | null = null;
+  private cacheExpiresAt = 0;
+  private inFlightRequest: Promise<InstagramPictureItem[]> | null = null;
+
+  async getLatestPictures(forceRefresh = false): Promise<InstagramPictureItem[]> {
+    const now = Date.now();
+    const cachedPictures = this.cachedPictures;
+
+    if (!forceRefresh && cachedPictures !== null && now < this.cacheExpiresAt) {
+      return cachedPictures;
+    }
+
+    if (!forceRefresh && this.inFlightRequest) {
+      return this.inFlightRequest;
+    }
+
+    const request = this.fetchLatestPictures();
+    this.inFlightRequest = request;
+
+    try {
+      const pictures = await request;
+      this.cachedPictures = pictures;
+      this.cacheExpiresAt = Date.now() + InstagramPicturesService.CACHE_TTL_MS;
+      return pictures;
+    } finally {
+      this.inFlightRequest = null;
+    }
+  }
+
+  private async fetchLatestPictures(): Promise<InstagramPictureItem[]> {
     const response = await firstValueFrom(
       this.http.get<InstagramPicturesResponse>('/api/instagram/pictures'),
     );
