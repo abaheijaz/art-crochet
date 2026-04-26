@@ -26,11 +26,13 @@ import {
 import { MiniToteBag } from '../mini-tote-bag/mini-tote-bag';
 import { BucketHat } from '../bucket-hat/bucket-hat';
 import { PhoneBag } from '../phone-bag/phone-bag';
+import { ThreeLayerToteBag } from '../3-layer-tote-bag/3-layer-tote-bag';
 
 const DETAIL_COMPONENT_REGISTRY: Partial<Record<ProductType, Type<unknown>>> = {
   'mini-tote-bag': MiniToteBag,
   'bucket-hat': BucketHat,
   'phone-bag': PhoneBag,
+  '3-layer-tote-bag': ThreeLayerToteBag,
 };
 
 const RECENT_PRODUCT_TYPE_KEY = 'recentSelectedProductType';
