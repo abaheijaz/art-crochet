@@ -10,10 +10,16 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import {
+  PicturePickDialog,
+  PicturePickDialogData,
+} from '../picture-pick-dialog/picture-pick-dialog';
 
 import {
   InstagramPictureItem,
@@ -27,35 +33,20 @@ interface ProductTab {
   emptyState: string;
 }
 
-const PRODUCT_TABS: ProductTab[] = [
-  {
-    value: 'bag',
-    label: 'Bag',
-    emptyState: 'No bag pictures are available yet.',
-  },
-  {
-    value: 'bucket-hat',
-    label: 'Bucket Hat',
-    emptyState: 'No bucket hat pictures are available yet.',
-  },
-  {
-    value: 'coaster',
-    label: 'Coaster',
-    emptyState: 'No coaster pictures are available yet.',
-  },
-  {
-    value: 'lipbalm-holder',
-    label: 'Lipbalm Holder',
-    emptyState: 'No lipbalm holder pictures are available yet.',
-  },
-  {
-    value: 'others',
-    label: 'Others',
-    emptyState: 'No other crochet pictures are available yet.',
-  },
-];
+function toProductLabel(productType: ProductType): string {
+  return productType
+    .split('-')
+    .filter((segment) => segment.length > 0)
+    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join(' ');
+}
+
+function toProductEmptyState(label: string): string {
+  return `No ${label.toLowerCase()} pictures are available yet.`;
+}
 
 const PICTURE_BATCH_SIZE = 12;
+const RECENT_PRODUCT_TYPE_KEY = 'recentSelectedProductType';
 
 @Component({
   selector: 'app-gallery',
@@ -66,22 +57,43 @@ const PICTURE_BATCH_SIZE = 12;
 })
 export class Gallery implements OnInit {
   private readonly instagramPicturesService = inject(InstagramPicturesService);
+  private readonly dialog = inject(MatDialog);
+  private readonly router = inject(Router);
   readonly scrollSentinel = viewChild<ElementRef<HTMLDivElement>>('scrollSentinel');
 
-  readonly productTabs = PRODUCT_TABS;
   readonly pictures = signal<InstagramPictureItem[]>([]);
   readonly isLoading = signal(true);
   readonly errorMessage = signal<string | null>(null);
-  readonly selectedProductType = signal<ProductType>('bag');
+  readonly selectedProductType = signal<ProductType | null>(null);
   readonly visiblePictureCount = signal(PICTURE_BATCH_SIZE);
+  readonly productTabs = computed<ProductTab[]>(() => {
+    const productTypes = Array.from(
+      new Set(
+        this.pictures()
+          .map((picture) => picture.product_type)
+          .filter(Boolean),
+      ),
+    );
+
+    return productTypes.map((productType) => {
+      const label = toProductLabel(productType);
+      return {
+        value: productType,
+        label,
+        emptyState: toProductEmptyState(label),
+      };
+    });
+  });
   readonly filteredPictures = computed(() =>
-    this.pictures().filter((picture) => picture.product_type === this.selectedProductType()),
+    this.selectedProductType()
+      ? this.pictures().filter((picture) => picture.product_type === this.selectedProductType())
+      : [],
   );
   readonly visiblePictures = computed(() =>
     this.filteredPictures().slice(0, this.visiblePictureCount()),
   );
   readonly productTabsWithCounts = computed(() =>
-    this.productTabs.map((tab) => ({
+    this.productTabs().map((tab) => ({
       ...tab,
       count: this.pictures().filter((picture) => picture.product_type === tab.value).length,
     })),
@@ -95,11 +107,40 @@ export class Gallery implements OnInit {
   );
   readonly selectedTabEmptyState = computed(
     () =>
-      this.productTabs.find((tab) => tab.value === this.selectedProductType())?.emptyState ??
+      this.productTabs().find((tab) => tab.value === this.selectedProductType())?.emptyState ??
       'No pictures are available yet.',
   );
 
   constructor() {
+    effect(() => {
+      const productTabs = this.productTabs();
+      const selectedProductType = this.selectedProductType();
+
+      if (productTabs.length === 0) {
+        if (selectedProductType !== null) {
+          untracked(() => {
+            this.selectedProductType.set(null);
+          });
+        }
+        return;
+      }
+
+      if (!selectedProductType || !productTabs.some((tab) => tab.value === selectedProductType)) {
+        untracked(() => {
+          const cachedProductType = this.getCachedProductType();
+          const nextProductType =
+            cachedProductType && productTabs.some((tab) => tab.value === cachedProductType)
+              ? cachedProductType
+              : productTabs[0].value;
+          this.selectedProductType.set(nextProductType);
+        });
+      }
+    });
+
+    effect(() => {
+      this.cacheSelectedProductType(this.selectedProductType());
+    });
+
     effect(() => {
       this.selectedProductType();
 
@@ -135,6 +176,11 @@ export class Gallery implements OnInit {
   }
 
   async ngOnInit() {
+    const cachedProductType = this.getCachedProductType();
+    if (cachedProductType) {
+      this.selectedProductType.set(cachedProductType);
+    }
+
     try {
       const pictures = await this.instagramPicturesService.getLatestPictures();
       this.pictures.set(pictures);
@@ -143,6 +189,25 @@ export class Gallery implements OnInit {
     } finally {
       this.isLoading.set(false);
     }
+  }
+
+  openPictureOptions(picture: InstagramPictureItem): void {
+    const dialogRef = this.dialog.open<PicturePickDialog, PicturePickDialogData, string>(
+      PicturePickDialog,
+      {
+        data: { picture },
+        maxWidth: '24rem',
+        width: 'calc(100% - 2rem)',
+      },
+    );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'instagram') {
+        window.open(picture.permalink, '_blank', 'noopener,noreferrer');
+      } else if (result === 'product-detail') {
+        this.router.navigate(['/details', picture.product_type]);
+      }
+    });
   }
 
   selectProductType(productType: ProductType) {
@@ -165,5 +230,25 @@ export class Gallery implements OnInit {
     this.visiblePictureCount.update((currentCount) =>
       Math.min(currentCount + PICTURE_BATCH_SIZE, this.filteredPictures().length),
     );
+  }
+
+  private getCachedProductType(): ProductType | null {
+    try {
+      return sessionStorage.getItem(RECENT_PRODUCT_TYPE_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  private cacheSelectedProductType(productType: ProductType | null): void {
+    if (!productType) {
+      return;
+    }
+
+    try {
+      sessionStorage.setItem(RECENT_PRODUCT_TYPE_KEY, productType);
+    } catch {
+      // Ignore storage failures.
+    }
   }
 }

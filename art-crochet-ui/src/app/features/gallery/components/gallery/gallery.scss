@@ -88,6 +88,13 @@
   overflow: hidden;
   aspect-ratio: 1;
   background: var(--mat-sys-surface-container);
+  cursor: pointer;
+  padding: 0;
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 2px;
+  }
 }
 
 .picture-card__image {
