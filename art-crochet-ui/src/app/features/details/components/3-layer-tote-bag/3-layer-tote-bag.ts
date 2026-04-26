@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -8,4 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './3-layer-tote-bag.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ThreeLayerToteBag {}
+export class ThreeLayerToteBag {
+  readonly variants = input<readonly string[]>([]);
+}

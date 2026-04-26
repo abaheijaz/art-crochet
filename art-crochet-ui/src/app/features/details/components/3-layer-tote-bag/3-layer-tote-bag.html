@@ -37,9 +37,21 @@
                 >Oval Base using Single Crochet; Body and Handle crafted with Double Crochet.</span
               >
             </li>
+            @if (variants().length > 0) {
+              <li class="three-layer-tote__feature-item">
+                <span class="three-layer-tote__feature-label">Variant</span>
+                <span class="three-layer-tote__feature-value">{{ variants().join(', ') }}</span>
+              </li>
+            }
             <li class="three-layer-tote__feature-item">
-              <span class="three-layer-tote__feature-label">Additional Features</span>
-              <span class="three-layer-tote__feature-value">Magnetic button, lining, zipper.</span>
+              <span class="three-layer-tote__feature-label">Handle Length</span>
+              <span class="three-layer-tote__feature-value">Shoulder drop.</span>
+            </li>
+            <li class="three-layer-tote__feature-item">
+              <span class="three-layer-tote__feature-label">Add-ons</span>
+              <span class="three-layer-tote__feature-value"
+                >Magnetic button, lining, zipper on request.</span
+              >
             </li>
           </ul>
         </div>

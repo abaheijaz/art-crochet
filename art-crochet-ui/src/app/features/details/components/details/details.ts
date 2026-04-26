@@ -110,7 +110,9 @@ export class Details implements OnInit {
   readonly collageImages = computed(() => this.filteredPictures().slice(0, 5));
 
   readonly detailComponentInputs = computed<Record<string, unknown>>(() => {
-    if (this.selectedProductType() !== 'mini-tote-bag') {
+    const selectedProductType = this.selectedProductType();
+
+    if (selectedProductType !== 'mini-tote-bag' && selectedProductType !== '3-layer-tote-bag') {
       return {};
     }
 
