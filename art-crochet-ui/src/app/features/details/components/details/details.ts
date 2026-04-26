@@ -24,14 +24,10 @@ import {
   ProductType,
 } from '../../../../shared/services/instagram-pictures.service';
 import { MiniToteBag } from '../mini-tote-bag/mini-tote-bag';
-import { BucketHat } from '../bucket-hat/bucket-hat';
-import { PhoneBag } from '../phone-bag/phone-bag';
 import { ThreeLayerToteBag } from '../3-layer-tote-bag/3-layer-tote-bag';
 
 const DETAIL_COMPONENT_REGISTRY: Partial<Record<ProductType, Type<unknown>>> = {
   'mini-tote-bag': MiniToteBag,
-  'bucket-hat': BucketHat,
-  'phone-bag': PhoneBag,
   '3-layer-tote-bag': ThreeLayerToteBag,
 };
 
@@ -80,7 +76,7 @@ export class Details implements OnInit {
       new Set(
         this.pictures()
           .map((p) => p.product_type)
-          .filter(Boolean),
+          .filter((type): type is ProductType => Boolean(type)),
       ),
     );
     return types.map((value) => ({ value, label: toProductLabel(value) }));
