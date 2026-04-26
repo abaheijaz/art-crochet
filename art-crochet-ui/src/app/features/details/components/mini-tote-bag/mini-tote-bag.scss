@@ -154,13 +154,13 @@
 }
 
 .mini-tote__feature-item {
-  align-items: center;
+  align-items: start;
   background: var(--mat-sys-surface-container-low);
   border: 1px solid color-mix(in srgb, var(--mat-sys-outline-variant) 70%, transparent);
   border-radius: 0.8rem;
   display: grid;
-  gap: 0.5rem 1rem;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 0.5rem 0.9rem;
+  grid-template-columns: clamp(8.5rem, 20vw, 12rem) minmax(0, 1fr);
   padding: 0.8rem 0.9rem;
 }
 
@@ -179,7 +179,7 @@
 .mini-tote__feature-value {
   color: var(--mat-sys-on-surface-variant);
   line-height: 1.45;
-  text-align: right;
+  text-align: left;
 }
 
 .mini-tote__feature-item--stacked .mini-tote__feature-label {
