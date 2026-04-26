@@ -32,10 +32,52 @@
 }
 
 .introduction__icon {
-  display: inline;
-  font-size: 0.75em;
-  line-height: 1;
-  margin-left: 0.12em;
+  display: inline-block;
+  height: 1.3em;
+  margin-left: 0.3em;
+  vertical-align: -0.2em;
+  width: 1.3em;
+}
+
+.introduction__icon-yarn {
+  fill: color-mix(in srgb, var(--mat-sys-primary) 58%, var(--mat-sys-tertiary-container) 42%);
+}
+
+.introduction__icon-yarn-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
+.introduction__icon-yarn-line--one {
+  stroke: color-mix(in srgb, white 78%, var(--mat-sys-primary) 22%);
+}
+
+.introduction__icon-yarn-line--two {
+  stroke: color-mix(in srgb, var(--mat-sys-primary) 52%, var(--mat-sys-tertiary) 48%);
+}
+
+.introduction__icon-thread {
+  fill: none;
+  stroke: color-mix(in srgb, var(--mat-sys-tertiary) 58%, var(--mat-sys-primary) 42%);
+  stroke-linecap: round;
+  stroke-width: 1.35;
+}
+
+.introduction__icon-hook {
+  fill: none;
+  stroke: color-mix(in srgb, var(--mat-sys-primary) 56%, var(--mat-sys-on-surface-variant) 18%);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.3;
+}
+
+.introduction__icon-hook-tip {
+  fill: none;
+  stroke: color-mix(in srgb, white 60%, var(--mat-sys-primary) 40%);
+  stroke-linecap: round;
+  stroke-width: 1.1;
 }
 
 .introduction__body {
