@@ -1,0 +1,140 @@
+<article class="bucket-hat">
+  <div class="bucket-hat__columns">
+    <div class="bucket-hat__column">
+      <section class="bucket-hat__card" aria-labelledby="bucket-hat-size-title">
+        <h2 class="bucket-hat__section-title" id="bucket-hat-size-title">
+          <mat-icon class="bucket-hat__icon" aria-hidden="true">straighten</mat-icon>
+          Size
+        </h2>
+        <div class="bucket-hat__size-list" aria-label="Available sizes">
+          <div class="bucket-hat__size-item">M</div>
+          <div class="bucket-hat__size-item">
+            L <span class="bucket-hat__size-note">(Preferred)</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="bucket-hat__card" aria-labelledby="bucket-hat-stitch-title">
+        <h2 class="bucket-hat__section-title" id="bucket-hat-stitch-title">
+          <mat-icon class="bucket-hat__icon" aria-hidden="true">auto_awesome</mat-icon>
+          Design and Stitch
+        </h2>
+        <div class="bucket-hat__detail-block bucket-hat__detail-block--compact">
+          <ul class="bucket-hat__feature-list bucket-hat__feature-list--variants">
+            <li class="bucket-hat__feature-item">
+              <span class="bucket-hat__feature-label">Concept</span>
+              <span class="bucket-hat__feature-value">Casual and minimalist.</span>
+            </li>
+            <li class="bucket-hat__feature-item">
+              <span class="bucket-hat__feature-label">Stitch</span>
+              <span class="bucket-hat__feature-value"
+                >Single crochet. Beginner to intermediate level.</span
+              >
+            </li>
+            @if (variants().length > 0) {
+              <li class="bucket-hat__feature-item">
+                <span class="bucket-hat__feature-label">Variant</span>
+                <span class="bucket-hat__feature-value">{{ variants().join(', ') }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <div class="bucket-hat__column">
+      <section class="bucket-hat__card" aria-labelledby="bucket-hat-material-title">
+        <h2 class="bucket-hat__section-title" id="bucket-hat-material-title">
+          <mat-icon class="bucket-hat__icon" aria-hidden="true">texture</mat-icon>
+          Material
+        </h2>
+        <p class="bucket-hat__material-name">KHUNN Bleached Cotton Rope 2.5 mm</p>
+        <p class="bucket-hat__material-note">A soft, sturdy and breathable cotton rope.</p>
+        <a
+          class="bucket-hat__shop-link"
+          href="https://shopee.com.my/-Malaysia-Ready-Stock-KHUNN-Bleached-Rope-2.5-mm.-Braided-Weight-100-Grams-Of-Cotton-Black-White-Tone-i.151954505.18564891192?extraParams=%7B%22display_model_id%22%3A79715788465%2C%22model_selection_logic%22%3A3%7D"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Shopee material link in a new tab"
+        >
+          <svg
+            class="bucket-hat__icon bucket-hat__brand-icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              d="M17.5 6H15a3 3 0 10-6 0H6.5A1.5 1.5 0 005 7.5v9A2.5 2.5 0 007.5 19h9a2.5 2.5 0 002.5-2.5v-9A1.5 1.5 0 0017.5 6zM10.5 6a1.5 1.5 0 013 0h-3z"
+            />
+            <path
+              d="M11.2 16.7c-.92 0-1.82-.34-2.5-.96l.94-1.12c.46.41 1.02.66 1.58.66.49 0 .8-.16.8-.44 0-.29-.29-.4-1.03-.62-1.03-.29-2.13-.72-2.13-2.03 0-1.24 1.02-2.1 2.46-2.1.82 0 1.62.29 2.25.83l-.84 1.05a2.55 2.55 0 00-1.4-.51c-.49 0-.72.16-.72.41 0 .29.33.41 1.11.64 1.1.33 2.06.77 2.06 1.99 0 1.2-.95 2.2-2.58 2.2z"
+            />
+          </svg>
+          Shopee link
+        </a>
+      </section>
+
+      <section class="bucket-hat__story" aria-labelledby="bucket-hat-story-title">
+        <h2 class="bucket-hat__section-title" id="bucket-hat-story-title">
+          <mat-icon class="bucket-hat__icon" aria-hidden="true">auto_stories</mat-icon>
+          Backstory
+        </h2>
+        <p class="bucket-hat__story-text">
+          While browsing the internet for a new pattern to work on, I stumbled upon this crochet
+          bucket hat pattern by Sarah Maker. I tried it using yarn I already had at home and
+          instantly fell in love with the result.
+        </p>
+        <p class="bucket-hat__story-text">
+          The pattern is available in sizes ranging from baby to adult XL. Personally, I prefer the
+          size L, as it is the most comfortable to wear over a hijab and has a slightly loose,
+          relaxed fit.
+        </p>
+        <p class="bucket-hat__story-text">
+          I have not tried the baby sizes yet, as I am still searching for a suitable yarn that
+          works well with Malaysia's warm weather.
+        </p>
+      </section>
+
+      <section class="bucket-hat__card" aria-labelledby="bucket-hat-credit-title">
+        <h2 class="bucket-hat__section-title" id="bucket-hat-credit-title">
+          <mat-icon class="bucket-hat__icon" aria-hidden="true">bookmark</mat-icon>
+          Pattern Credit
+        </h2>
+        <p class="bucket-hat__story-text bucket-hat__story-text--tight">
+          This bucket hat is handmade using the Crochet Bucket Hat pattern by Sarah Maker. This item
+          is handmade by me and is not affiliated with or endorsed by Sarah Maker.
+        </p>
+        <a
+          class="bucket-hat__shop-link"
+          href="https://sarahmaker.com/crochet-bucket-hat/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open the Sarah Maker crochet bucket hat pattern in a new tab"
+        >
+          <mat-icon class="bucket-hat__icon" aria-hidden="true">open_in_new</mat-icon>
+          View pattern
+        </a>
+      </section>
+
+      <section class="bucket-hat__card bucket-hat__order" aria-labelledby="bucket-hat-order-title">
+        <h2 class="bucket-hat__section-title" id="bucket-hat-order-title">
+          <mat-icon class="bucket-hat__icon" aria-hidden="true">volunteer_activism</mat-icon>
+          Want One Handmade?
+        </h2>
+        <p class="bucket-hat__order-note">
+          If you'd like this piece made for you, orders are open from
+          <span class="bucket-hat__price" aria-label="Starting price RM 62">RM62</span>.
+        </p>
+        <a
+          class="bucket-hat__order-link"
+          href="https://wa.me/60127358266"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Message owner on WhatsApp to place an order"
+        >
+          <mat-icon class="bucket-hat__icon" aria-hidden="true">chat</mat-icon>
+          Message on WhatsApp
+        </a>
+      </section>
+    </div>
+  </div>
+</article>

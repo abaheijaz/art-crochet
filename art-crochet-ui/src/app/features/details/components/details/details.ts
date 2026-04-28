@@ -23,10 +23,12 @@ import {
   InstagramPicturesService,
   ProductType,
 } from '../../../../shared/services/instagram-pictures.service';
+import { BucketHat } from '../bucket-hat/bucket-hat';
 import { MiniToteBag } from '../mini-tote-bag/mini-tote-bag';
 import { ThreeLayerToteBag } from '../3-layer-tote-bag/3-layer-tote-bag';
 
 const DETAIL_COMPONENT_REGISTRY: Partial<Record<ProductType, Type<unknown>>> = {
+  'bucket-hat': BucketHat,
   'mini-tote-bag': MiniToteBag,
   '3-layer-tote-bag': ThreeLayerToteBag,
 };
@@ -112,7 +114,11 @@ export class Details implements OnInit {
   readonly detailComponentInputs = computed<Record<string, unknown>>(() => {
     const selectedProductType = this.selectedProductType();
 
-    if (selectedProductType !== 'mini-tote-bag' && selectedProductType !== '3-layer-tote-bag') {
+    if (
+      selectedProductType !== 'bucket-hat' &&
+      selectedProductType !== 'mini-tote-bag' &&
+      selectedProductType !== '3-layer-tote-bag'
+    ) {
       return {};
     }
 
