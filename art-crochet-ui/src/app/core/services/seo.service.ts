@@ -75,7 +75,8 @@ export class SeoService {
       typeof routeDescription === 'string' && routeDescription.trim().length > 0
         ? routeDescription
         : DEFAULT_DESCRIPTION;
-    const routeTitle = typeof route.title === 'string' && route.title.trim().length > 0 ? route.title : SITE_NAME;
+    const routeTitle =
+      typeof route.title === 'string' && route.title.trim().length > 0 ? route.title : SITE_NAME;
 
     return {
       title: routeTitle,
