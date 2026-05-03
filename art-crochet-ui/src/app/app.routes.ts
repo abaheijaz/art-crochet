@@ -8,11 +8,21 @@ export const routes: Routes = [
   },
   {
     path: 'details',
+    title: 'Crochet Details | Made By Xima',
+    data: {
+      description:
+        'Browse sizes, materials, stitch notes, and ordering details for Made By Xima handmade crochet pieces.',
+    },
     loadComponent: () =>
       import('./features/details/components/details/details').then((module) => module.Details),
   },
   {
     path: 'details/:productType',
+    title: 'Crochet Details | Made By Xima',
+    data: {
+      description:
+        'Browse sizes, materials, stitch notes, and ordering details for Made By Xima handmade crochet pieces.',
+    },
     loadComponent: () =>
       import('./features/details/components/details/details').then((module) => module.Details),
   },
