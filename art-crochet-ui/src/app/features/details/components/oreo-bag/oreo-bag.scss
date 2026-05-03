@@ -1,0 +1,222 @@
+.oreo-bag {
+  display: grid;
+  gap: 1rem;
+}
+
+.oreo-bag__columns {
+  display: grid;
+  gap: 1rem;
+}
+
+.oreo-bag__column {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.oreo-bag__card,
+.oreo-bag__story {
+  background: var(--mat-sys-surface-container);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 0.9rem;
+  padding: 1rem 1.1rem;
+}
+
+.oreo-bag__section-title {
+  align-items: center;
+  color: var(--mat-sys-on-surface);
+  display: flex;
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(1.35rem, 2.5vw, 1.7rem);
+  gap: 0.45rem;
+  margin: 0 0 0.75rem;
+}
+
+.oreo-bag__icon {
+  color: var(--mat-sys-primary);
+  font-size: 1.05rem;
+  height: 1.05rem;
+  width: 1.05rem;
+}
+
+.oreo-bag__brand-icon {
+  fill: currentColor;
+}
+
+.oreo-bag__size-list {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.oreo-bag__size-list--single {
+  grid-template-columns: 1fr;
+}
+
+.oreo-bag__size-item {
+  background: var(--mat-sys-surface-container-low);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+}
+
+.oreo-bag__size-item dt {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.oreo-bag__size-item dd {
+  color: var(--mat-sys-on-surface);
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(1.2rem, 3vw, 1.45rem);
+  font-weight: 600;
+  margin: 0.24rem 0 0;
+}
+
+.oreo-bag__material-name {
+  color: var(--mat-sys-on-surface);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.oreo-bag__material-note {
+  color: var(--mat-sys-on-surface-variant);
+  font-style: italic;
+  line-height: 1.55;
+  margin: 0.35rem 0 0;
+}
+
+.oreo-bag__shop-link {
+  align-items: center;
+  border: 1px solid var(--mat-sys-outline);
+  border-radius: 999px;
+  color: var(--mat-sys-primary);
+  display: inline-flex;
+  font-weight: 600;
+  gap: 0.45rem;
+  margin-top: 0.8rem;
+  padding: 0.4rem 0.72rem;
+  text-decoration: none;
+}
+
+.oreo-bag__shop-link:hover {
+  background: color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+}
+
+.oreo-bag__shop-link:focus-visible {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
+}
+
+.oreo-bag__link-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.8rem;
+}
+
+.oreo-bag__link-cluster .oreo-bag__shop-link {
+  margin-top: 0;
+}
+
+.oreo-bag__detail-block {
+  margin-top: 1rem;
+}
+
+.oreo-bag__detail-block--compact {
+  margin-top: 0;
+}
+
+.oreo-bag__feature-list {
+  display: grid;
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.oreo-bag__feature-item {
+  align-items: start;
+  background: var(--mat-sys-surface-container-low);
+  border: 1px solid color-mix(in srgb, var(--mat-sys-outline-variant) 70%, transparent);
+  border-radius: 0.8rem;
+  display: grid;
+  gap: 0.5rem 0.9rem;
+  grid-template-columns: clamp(8.5rem, 20vw, 12rem) minmax(0, 1fr);
+  padding: 0.8rem 0.9rem;
+}
+
+.oreo-bag__feature-label {
+  color: var(--mat-sys-on-surface);
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.oreo-bag__feature-value {
+  color: var(--mat-sys-on-surface-variant);
+  line-height: 1.45;
+  text-align: left;
+}
+
+.oreo-bag__order-note {
+  color: var(--mat-sys-on-surface-variant);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.oreo-bag__order-link {
+  align-items: center;
+  color: var(--mat-sys-primary);
+  display: inline-flex;
+  font-weight: 600;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.oreo-bag__order-link:hover {
+  color: var(--mat-sys-primary);
+  text-decoration-thickness: 0.12em;
+}
+
+.oreo-bag__order-link:focus-visible {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
+}
+
+.oreo-bag__price {
+  color: var(--mat-sys-on-surface);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.oreo-bag__story-text {
+  color: var(--mat-sys-on-surface-variant);
+  line-height: 1.65;
+  margin: 0.85rem 0 0;
+}
+
+.oreo-bag__story-text--tight {
+  margin-top: 0;
+}
+
+@media (max-width: 800px) {
+  .oreo-bag__size-list {
+    grid-template-columns: 1fr;
+  }
+
+  .oreo-bag__feature-item {
+    grid-template-columns: 1fr;
+  }
+
+  .oreo-bag__feature-value {
+    text-align: left;
+  }
+}

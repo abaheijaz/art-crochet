@@ -24,14 +24,20 @@ import {
   ProductType,
 } from '../../../../shared/services/instagram-pictures.service';
 import { BucketHat } from '../bucket-hat/bucket-hat';
+import { DiamondToteBag } from '../diamond-tote-bag/diamond-tote-bag';
 import { MiniToteBag } from '../mini-tote-bag/mini-tote-bag';
+import { OreoBag } from '../oreo-bag/oreo-bag';
 import { ThreeLayerToteBag } from '../3-layer-tote-bag/3-layer-tote-bag';
 
 const DETAIL_COMPONENT_REGISTRY: Partial<Record<ProductType, Type<unknown>>> = {
   'bucket-hat': BucketHat,
+  'diamond-tote-bag': DiamondToteBag,
   'mini-tote-bag': MiniToteBag,
+  'oreo-bag': OreoBag,
   '3-layer-tote-bag': ThreeLayerToteBag,
 };
+
+const REGISTERED_PRODUCT_TYPES = Object.keys(DETAIL_COMPONENT_REGISTRY) as ProductType[];
 
 const RECENT_PRODUCT_TYPE_KEY = 'recentSelectedProductType';
 
@@ -74,14 +80,17 @@ export class Details implements OnInit {
   readonly selectedProductType = signal<ProductType | null>(null);
 
   readonly productOptions = computed<ProductOption[]>(() => {
-    const types = Array.from(
-      new Set(
-        this.pictures()
-          .map((p) => p.product_type)
-          .filter((type): type is ProductType => Boolean(type)),
-      ),
-    );
-    return types.map((value) => ({ value, label: toProductLabel(value) }));
+    const types = new Set<ProductType>(REGISTERED_PRODUCT_TYPES);
+
+    for (const picture of this.pictures()) {
+      if (picture.product_type) {
+        types.add(picture.product_type);
+      }
+    }
+
+    const options = Array.from(types);
+
+    return options.map((value) => ({ value, label: toProductLabel(value) }));
   });
 
   readonly currentDetailComponent = computed<Type<unknown> | null>(() => {
@@ -112,13 +121,7 @@ export class Details implements OnInit {
   readonly collageImages = computed(() => this.filteredPictures().slice(0, 5));
 
   readonly detailComponentInputs = computed<Record<string, unknown>>(() => {
-    const selectedProductType = this.selectedProductType();
-
-    if (
-      selectedProductType !== 'bucket-hat' &&
-      selectedProductType !== 'mini-tote-bag' &&
-      selectedProductType !== '3-layer-tote-bag'
-    ) {
+    if (!this.currentDetailComponent()) {
       return {};
     }
 
