@@ -13,7 +13,7 @@ import { ThemeService } from '../../services/theme.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainToolbar {
-  title = 'Lovingly Made';
+  title = 'Lovingly Made by Aizat';
 
   protected readonly themeService = inject(ThemeService);
 }
