@@ -33,17 +33,18 @@ export class SeoService {
     const activeRoute = this.getActiveRoute(this.router.routerState.snapshot.root);
     const seoState = this.resolveSeoState(activeRoute);
     const canonicalUrl = this.resolveCanonicalUrl();
+    const pageTitle = `${seoState.title} | by Aizat`;
 
-    this.title.setTitle(seoState.title);
+    this.title.setTitle(pageTitle);
     this.meta.updateTag({ name: 'description', content: seoState.description });
     this.meta.updateTag({ name: 'robots', content: 'index,follow' });
     this.meta.updateTag({ property: 'og:site_name', content: SITE_NAME });
-    this.meta.updateTag({ property: 'og:title', content: seoState.title });
+    this.meta.updateTag({ property: 'og:title', content: pageTitle });
     this.meta.updateTag({ property: 'og:description', content: seoState.description });
     this.meta.updateTag({ property: 'og:type', content: 'website' });
     this.meta.updateTag({ property: 'og:url', content: canonicalUrl });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
-    this.meta.updateTag({ name: 'twitter:title', content: seoState.title });
+    this.meta.updateTag({ name: 'twitter:title', content: pageTitle });
     this.meta.updateTag({ name: 'twitter:description', content: seoState.description });
     this.updateCanonicalLink(canonicalUrl);
   }
