@@ -1,0 +1,45 @@
+.contact {
+  margin: 0 auto;
+  max-width: 72rem;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.contact__card {
+  width: min(100%, 48rem);
+  margin: 0 auto;
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.contact__card mat-card-content {
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.contact__eyebrow {
+  color: var(--mat-sys-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.contact__title {
+  color: var(--mat-sys-on-surface);
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 0.98;
+  margin: 0 0 1rem;
+}
+
+.contact__body {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: clamp(1rem, 1.1vw, 1.08rem);
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .contact {
+    padding: 1.25rem 1rem 2rem;
+  }
+}

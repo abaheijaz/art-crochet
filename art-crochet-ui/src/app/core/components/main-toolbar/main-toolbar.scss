@@ -52,6 +52,19 @@ mat-toolbar {
   letter-spacing: 0.02em;
 }
 
+.toolbar-title-lockup {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.toolbar-title-attribution {
+  color: var(--mat-sys-on-surface-variant);
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 600;
+}
+
 .toolbar-title--montez {
   font-family: 'Montez', 'Brush Script MT', 'Lucida Calligraphy', cursive;
 }
