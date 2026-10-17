@@ -7,11 +7,6 @@ export const routes: Routes = [
       import('./features/my-story/my-story.routes').then((module) => module.MY_STORY_ROUTES),
   },
   {
-    path: 'contact',
-    loadChildren: () =>
-      import('./features/contact/contact.routes').then((module) => module.CONTACT_ROUTES),
-  },
-  {
     path: 'details',
     title: 'Crochet Details | Made By Xima',
     data: {
